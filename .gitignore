@@ -1,0 +1,14 @@
+/**
+
+!**/
+**/work/
+
+!.gitignore
+!*.sv
+!*.py
+!*.txt
+!*.do
+
+
+!README*
+!CHANGELOG*
