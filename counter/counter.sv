@@ -7,21 +7,26 @@ module counter
 	input reset,  // synchronous reset
 	input enable, // count while enabled
 	output [WIDTH-1 : 0] cnt,  // output bus
-	output rollover            // rollover flag (high when MAX_VALUE)
+	output rollover            // rollover flag (high on next clock after MAX_VALUE)
 );
 
-	assign rollover = enable & (cnt >= MAX_VALUE);
-	reg [WIDTH-1 : 0] _cnt;
+	logic [WIDTH-1 : 0] _cnt;
+	logic _rollover;
 
-	always @(posedge clk) begin : proc_cnt
-		if(reset)
+	always @(posedge clk) begin
+		if (reset) begin
 			_cnt <= RESET_VALUE;
-		else if (enable)
-			_cnt <= rollover ? ROLLOVER_VALUE : _cnt + 1'b1;
-		else
+			_rollover <= 0;
+		end else if (enable) begin
+			_cnt <= (_cnt >= MAX_VALUE) ? ROLLOVER_VALUE : _cnt + 1'b1;
+			_rollover <= (_cnt >= MAX_VALUE);
+		end else begin
 			_cnt <= _cnt;
+			_rollover <= _rollover;
+		end
 	end
 
 	assign cnt = _cnt;
+	assign rollover = _rollover;
 
 endmodule

@@ -88,7 +88,7 @@ initial begin : stimulus
 		$display("     test FAILED with %0d errors", n_errors);
 		$display("-------------------------");
 	end
-	$finish;
+	$stop;
 end
 
 endmodule : testbench
