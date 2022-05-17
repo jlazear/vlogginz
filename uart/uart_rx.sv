@@ -23,11 +23,14 @@ module uart_rx
 	logic [WIDTH-1:0] data;
 	logic [DCLK_SUBCNT_WIDTH-1 : 0] dclk_subcnt;
 	logic [$clog2(WIDTH) : 0] s_cnt;
-	logic sync_rx, dclk_ro, dclk, s, sampling, sampled, start_bit, end_bit;
+	logic [1:0] rx_edge;
+	logic sync_rx, dclk_ro, dclk, s, sampling, sampled, start_bit, end_bit, dclk_reset;
+	logic candidate_valid_packet;
 	wire _x;  // discard wire
 	enum {DESYNCED, SENDING, WAITING} state, next_state;
 
 	assign sampling = (dclk_subcnt == SAMPLE_PHASE);
+	assign candidate_valid_packet = (~start_bit && end_bit);
 
 	// synchronize input
 	synchronizer #(.SYNC_HIGH(1)) q_sync (clk, i_reset, i_rx, sync_rx);
@@ -38,13 +41,26 @@ module uart_rx
 		.MAX_VALUE(DIVISOR-1        )
 	) q_dclk_counter (
 		.clk     (clk        ),
-		.reset   (i_reset      ),
+		.reset   (i_reset || dclk_reset),
 		.enable  ('1         ),
 		.cnt     (dclk_subcnt),
 		.rollover(dclk_ro    )
 	);
 
 	assign dclk = (dclk_subcnt < DIVISOR>>1);
+
+	// dclk synchronizer
+	always @(posedge clk) begin
+		rx_edge <= {rx_edge[0], sync_rx};
+		dclk_reset <= '0;
+		if (i_reset) begin
+			rx_edge <= '1;
+		end else begin
+			if (rx_edge == 2'b10 && (state == SENDING || state == DESYNCED)) begin
+				dclk_reset <= '1;
+			end
+		end
+	end
 
 	// sampler
 	always @(posedge clk) begin
@@ -61,7 +77,7 @@ module uart_rx
 	// sample counter
 	counter #(
 		.WIDTH         ($clog2(WIDTH)+1),
-		.MAX_VALUE     (WIDTH))
+		.MAX_VALUE     (WIDTH+1))
 	q_sample_counter (
 		.clk     (clk),
 		.reset   (state != WAITING),
@@ -90,13 +106,13 @@ module uart_rx
 	// state machine
 	always @*
 		unique case (state)
-			DESYNCED: next_state <= (~start_bit && end_bit) ? SENDING : DESYNCED;
+			DESYNCED: next_state <= candidate_valid_packet ? SENDING : DESYNCED;
 			SENDING: next_state <= WAITING;
 			WAITING: begin
-				if (s_cnt < WIDTH)
+				if (s_cnt < WIDTH+1)
 					next_state <= WAITING;
 				else
-					next_state <= (~start_bit && end_bit) ? SENDING : DESYNCED;
+					next_state <= candidate_valid_packet ? SENDING : DESYNCED;
 			end
 		endcase
 

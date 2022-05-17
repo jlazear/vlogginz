@@ -1,12 +1,23 @@
+python generate_data.py
 vlog *.sv
 delete wave *
 
 add wave -position end  sim:/testbench/tb_state
 add wave -position end  sim:/testbench/clk
 add wave -position end  sim:/testbench/reset
+add wave -position end  sim:/testbench/txclk
 add wave -position end  sim:/testbench/tx
 add wave -position end  -radix hex sim:/testbench/data
 add wave -position end  sim:/testbench/dv
+
+add wave -divider SAMPLING
+add wave -position end  sim:/testbench/txclk
+add wave -position end  sim:/testbench/dut/dclk_reset
+add wave -position end  sim:/testbench/dut/dclk
+add wave -position end  sim:/testbench/tx
+add wave -position end  sim:/testbench/dut/sync_rx
+add wave -position end  sim:/testbench/dut/sampling
+add wave -position end  sim:/testbench/dut/s
 
 add wave -divider UART_RX
 add wave -position end  sim:/testbench/dut/state
