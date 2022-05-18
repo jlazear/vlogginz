@@ -5,7 +5,7 @@ module testbench;
 localparam period = 100;  // 10 MHz clock
 localparam TARGET_BAUDRATE = 115200;  // Hz
 localparam FREQ_SHIFT = 0.05;  // fractional
-localparam BAUDRATE = TARGET_BAUDRATE*(1 + FREQ_SHIFT);  // Hz
+localparam BAUDRATE = $rtoi(TARGET_BAUDRATE*(1.0 + FREQ_SHIFT));  // Hz
 localparam DIVISOR = 10**9/(TARGET_BAUDRATE * period);  // unitless, uart dclk divisor
 localparam SAMPLE_PHASE = DIVISOR/2;  // sample phase in number of samples
 localparam WIDTH = 8;  // word width in bits

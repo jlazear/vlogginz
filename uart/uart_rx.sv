@@ -7,7 +7,7 @@
 module uart_rx
 	#(
 		WIDTH=8,
-		DIVISOR=100,
+		DIVISOR=100,  // DIVISOR should be even
 		SAMPLE_PHASE=49)
 	(
 	input clk,
