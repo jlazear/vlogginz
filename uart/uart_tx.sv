@@ -39,7 +39,7 @@ module uart_tx
 	assign dclk = (dclk_subcnt < DIVISOR>>1);
 
 	// memory handler
-	always @(posedge dclk)  // separate reset handler, since no dclk when reset
+	always @(posedge clk)  // separate reset handler, since no dclk when reset
 		if (i_reset) 
 			mem <= '0;
 
