@@ -39,17 +39,15 @@ module uart_tx
 	assign dclk = (dclk_subcnt < DIVISOR>>1);
 
 	// memory handler
-	always @(posedge clk)  // separate reset handler, since no dclk when reset
-		if (i_reset) 
-			mem <= '0;
-
-	always @(posedge dclk) begin
+	always @(posedge clk) begin
 		if (i_reset) begin
 			mem <= '0;
-		end else if (state == IDLE || state == STOP) begin
-			if (i_dv) mem <= i_data;
-		end else if (state == DATA) begin
-			mem <= mem >> 1;
+		end else if (dclk_subcnt == DIVISOR>>1) begin
+			if (state == IDLE || state == STOP) begin
+				if (i_dv) mem <= i_data;
+			end else if (state == DATA) begin
+				mem <= mem >> 1;
+			end
 		end else
 			mem <= mem;
 	end
@@ -63,16 +61,21 @@ module uart_tx
 			STOP: next_state <= i_dv ? START : IDLE;
 		endcase
 
-	always @(posedge dclk)
+	always @(posedge clk)
 		if (i_reset)
 			state <= IDLE;
-		else
+		else if (dclk_subcnt == DIVISOR>>1)
 			state <= next_state;
+		else
+			state <= state;
 
-	always @(posedge dclk) begin
+	always @(posedge clk) begin
 		s_cnt <= '0;
 		if (state == DATA)
-			s_cnt <= s_cnt + 1'b1;
+			if (dclk_subcnt == DIVISOR>>1)
+				s_cnt <= s_cnt + 1'b1;
+			else
+				s_cnt <= s_cnt;
 	end
 
 	// outputs
