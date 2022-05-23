@@ -19,7 +19,7 @@ module uart_tx
 	logic [WIDTH-1:0] mem;
 	logic [DCLK_SUBCNT_WIDTH-1 : 0] dclk_subcnt;
 	logic [$clog2(WIDTH)-1 : 0] s_cnt;
-	logic tx;
+	logic tx, dclk;
 	wire _x;
 
 	enum {IDLE, START, DATA, STOP} state, next_state;
