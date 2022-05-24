@@ -4,11 +4,28 @@
 **/work/
 
 !.gitignore
+!*.v
 !*.sv
+!*.vhd
 !*.py
-!*.txt
 !*.do
 
+# libero SoC files
+!*.sdc
+!*.pdc
+!*.prjx
+**/component/
+**/designer/
+**/package/
+**/simulation/
+**/smartgen/
+**/stimulus/
+**/synthesis/
+**/tooldata/
+**/viewdraw/
+!**/smartgen/**/*.sv
+!**/smartgen/**/*.v
+!**/smartgen/**/*.vhd
 
 !README*
 !CHANGELOG*
