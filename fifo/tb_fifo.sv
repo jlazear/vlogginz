@@ -12,7 +12,7 @@ logic [7:0] read_data, write_data, temp;
 logic [7:0] write_buffer [$];
 logic [7:0] read_buffer [$];
 
-enum {START, LOAD1, READ1, RW_AT_FULL, DONE} tb_state;
+enum {START, LOAD1, READ1, RW_AT_FULL, LOAD2, RW_AT_HALF, READ2, DONE} tb_state;
 enum {NONE, WRITE, READ} active_task;
 
 task load_fifo(input int initial_delay=0, input r=0, input int n_samples=DEPTH);
@@ -75,6 +75,7 @@ initial begin
 	w_en = '0;
 	r_en = '0;
 
+	// load to full capacity
 	tb_state <= LOAD1;
 	load_fifo(.r(1));
 
@@ -99,11 +100,38 @@ initial begin
 	tb_state <= READ1;
 	read_fifo(10);
 
+	// load to half capacity
+	@(posedge clk);
+	tb_state <= LOAD2;
+	load_fifo(.r(1), .n_samples(DEPTH/2));
+
+	// test simultaneous write/read at half capacity
+	tb_state <= RW_AT_HALF;
+	@(posedge clk);
+	w_en <= '1;
+	r_en <= '1;
+	write_data <= 8'hff;
+	write_buffer.push_back(8'hff);
+
+	@(posedge clk);
+	w_en <= '0;
+	r_en <= '0;
+
+	@(posedge clk);
+	read_buffer.push_back(read_data);
+
+	@(posedge clk);
+
+	// test half read
+	tb_state <= READ2;
+	read_fifo(10, DEPTH/2);
+
+
 	@(posedge clk);
 	tb_state <= DONE;
 
-	$display("%p", write_buffer);
-	$display("%p", read_buffer);
+	$display("write_buffer = %p", write_buffer);
+	$display("read_buffer = %p", read_buffer);
 	assert (write_buffer == read_buffer) begin
 		$display("============");
 		$display("    tests PASSED");

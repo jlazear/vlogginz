@@ -52,7 +52,7 @@ module fifo
 				if (!empty) begin
 					out_data <= mem[ptr1];
 					ptr1 <= (ptr1 >= DEPTH - 1) ? 0 : ptr1 + 1'b1;
-					if (ptr1 == 0 && !i_w_en)  // need to check w_en so as not to stomp
+					if (ptr1 == 0 && !(i_w_en && ptr2 == 0))  // need to check w_en and ptr2 so as not to stomp
 						first <= '0;
 				end
 			end
