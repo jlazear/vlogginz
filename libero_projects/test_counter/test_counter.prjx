@@ -32,7 +32,7 @@ KEY VendorTechnology_VCCI_1.8_VOLTR "COM"
 KEY VendorTechnology_VCCI_2.5_VOLTR "COM"
 KEY VendorTechnology_VCCI_3.3_VOLTR "COM"
 KEY VendorTechnology_VOLTR "COM"
-KEY ProjectLocation "C:\Users\jlazear\Documents\verilog_practice\projects\test_counter"
+KEY ProjectLocation "C:\Users\jlazear\Documents\git\vlogginz\libero_projects\test_counter"
 KEY ProjectDescription ""
 KEY UseRootLocationForLinkedFiles "FALSE"
 KEY RootLocationENVForLinkedFiles ""
@@ -214,13 +214,13 @@ IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\test_counter\test_counter.cxf,actgen_cxf"
 STATE="utd"
-TIME="1653342538"
-SIZE="2034"
+TIME="1653381652"
+SIZE="2372"
 ENDFILE
 VALUE "<project>\component\work\test_counter\test_counter.v,hdl"
 STATE="utd"
-TIME="1653342537"
-SIZE="2030"
+TIME="1653381652"
+SIZE="2860"
 PARENT="<project>\component\work\test_counter\test_counter.cxf"
 IS_READONLY="TRUE"
 ENDFILE
@@ -305,14 +305,19 @@ SIZE="0"
 ENDFILE
 VALUE "<project>\constraint\io\user.pdc,io_pdc"
 STATE="utd"
-TIME="1653342872"
-SIZE="1900"
+TIME="1653380411"
+SIZE="2845"
 IS_TARGET="TRUE"
 ENDFILE
 VALUE "<project>\hdl\counter.sv,hdl"
 STATE="utd"
 TIME="1652953420"
 SIZE="779"
+ENDFILE
+VALUE "<project>\hdl\gmii_tx.sv,hdl"
+STATE="utd"
+TIME="1653380177"
+SIZE="728"
 ENDFILE
 VALUE "<project>\hdl\gray.sv,hdl"
 STATE="utd"
@@ -326,8 +331,8 @@ SIZE="625"
 ENDFILE
 VALUE "<project>\hdl\top_module.sv,hdl"
 STATE="utd"
-TIME="1653348471"
-SIZE="2209"
+TIME="1653379958"
+SIZE="2468"
 ENDFILE
 VALUE "<project>\hdl\uart_tx.sv,hdl"
 STATE="utd"
@@ -371,22 +376,22 @@ SIZE="159"
 ENDFILE
 VALUE "<project>\synthesis\test_counter.so,so"
 STATE="utd"
-TIME="1653345032"
-SIZE="264"
+TIME="1653381672"
+SIZE="267"
 ENDFILE
 VALUE "<project>\synthesis\test_counter.vm,syn_vm"
 STATE="utd"
-TIME="1653345031"
-SIZE="35448"
+TIME="1653381671"
+SIZE="50751"
 ENDFILE
 VALUE "<project>\synthesis\test_counter_syn.prj,prj"
 STATE="utd"
-TIME="1653345032"
-SIZE="3227"
+TIME="1653381673"
+SIZE="3491"
 ENDFILE
 VALUE "<project>\synthesis\test_counter_vm.sdc,syn_sdc"
 STATE="utd"
-TIME="1653345031"
+TIME="1653381671"
 SIZE="914"
 ENDFILE
 ENDLIST
@@ -508,8 +513,8 @@ NAME="Synplify Pro ME"
 FUNCTION="Synthesis"
 TOOL="Synplify Pro ME"
 LOCATION="E:\Microsemi\Libero\SynplifyPro\bin\synplify_pro.exe"
-PARAM=""
-BATCH=0
+PARAM="-licensetype synplifypro_actel -batch -log synplify.log"
+BATCH=1
 LICENSE=""
 IS32BIT="1"
 EndProfile
@@ -576,6 +581,8 @@ SUBBLOCK "counter::work","hdl\counter.sv","FALSE","FALSE"
 ENDLIST
 LIST "counter::work","hdl\counter.sv","FALSE","FALSE"
 ENDLIST
+LIST "gmii_tx::work","hdl\gmii_tx.sv","FALSE","FALSE"
+ENDLIST
 LIST "gray::work","hdl\gray.sv","FALSE","FALSE"
 ENDLIST
 LIST "OSC_C0::work","component\work\OSC_C0\OSC_C0.v","TRUE","FALSE"
@@ -618,6 +625,8 @@ ENDLIST
 LIST "top_module::work","hdl\top_module.sv","FALSE","FALSE"
 SUBBLOCK "counter::work","hdl\counter.sv","FALSE","FALSE"
 SUBBLOCK "uart_tx::work","hdl\uart_tx.sv","FALSE","FALSE"
+SUBBLOCK "gmii_tx::work","hdl\gmii_tx.sv","FALSE","FALSE"
+SUBBLOCK "gray::work","hdl\gray.sv","FALSE","FALSE"
 ENDLIST
 LIST "XTLOSC::work","component\Actel\SgCore\OSC\2.0.101\osc_comps.v","FALSE","FALSE"
 ENDLIST
