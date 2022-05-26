@@ -74,8 +74,9 @@ IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\Actel\SgCore\FCCC\2.0.201\FCCC.cxf,actgen_cxf"
 STATE="utd"
-TIME="1652947901"
+TIME="1653385807"
 SIZE="241"
+PARENT="<project>\component\work\FCCC_C0\FCCC_C0.cxf"
 PARENT="<project>\component\work\test_counter_sb\test_counter_sb.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SgCore\OSC\2.0.101\OSC.cxf,actgen_cxf"
@@ -187,6 +188,31 @@ TIME="1652947884"
 SIZE="256"
 PARENT="<project>\component\work\test_counter_sb_MSS\test_counter_sb_MSS.cxf"
 ENDFILE
+VALUE "<project>\component\work\FCCC_C0\FCCC_C0.cxf,actgen_cxf"
+STATE="utd"
+TIME="1653385807"
+SIZE="10081"
+ENDFILE
+VALUE "<project>\component\work\FCCC_C0\FCCC_C0.v,hdl"
+STATE="utd"
+TIME="1653385807"
+SIZE="6183"
+PARENT="<project>\component\work\FCCC_C0\FCCC_C0.cxf"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\work\FCCC_C0\FCCC_C0_0\FCCC_C0_FCCC_C0_0_FCCC.cxf,actgen_cxf"
+STATE="utd"
+TIME="1653385807"
+SIZE="706"
+PARENT="<project>\component\work\FCCC_C0\FCCC_C0.cxf"
+ENDFILE
+VALUE "<project>\component\work\FCCC_C0\FCCC_C0_0\FCCC_C0_FCCC_C0_0_FCCC.v,hdl"
+STATE="utd"
+TIME="1653385807"
+SIZE="1787"
+PARENT="<project>\component\work\FCCC_C0\FCCC_C0_0\FCCC_C0_FCCC_C0_0_FCCC.cxf"
+IS_READONLY="TRUE"
+ENDFILE
 VALUE "<project>\component\work\OSC_C0\OSC_C0.cxf,actgen_cxf"
 STATE="utd"
 TIME="1652948685"
@@ -214,13 +240,13 @@ IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\test_counter\test_counter.cxf,actgen_cxf"
 STATE="utd"
-TIME="1653381652"
-SIZE="2372"
+TIME="1653524156"
+SIZE="2585"
 ENDFILE
 VALUE "<project>\component\work\test_counter\test_counter.v,hdl"
 STATE="utd"
-TIME="1653381652"
-SIZE="2860"
+TIME="1653524156"
+SIZE="3193"
 PARENT="<project>\component\work\test_counter\test_counter.cxf"
 IS_READONLY="TRUE"
 ENDFILE
@@ -305,14 +331,29 @@ SIZE="0"
 ENDFILE
 VALUE "<project>\constraint\io\user.pdc,io_pdc"
 STATE="utd"
-TIME="1653380411"
-SIZE="2845"
+TIME="1653479553"
+SIZE="1488"
 IS_TARGET="TRUE"
 ENDFILE
 VALUE "<project>\hdl\counter.sv,hdl"
 STATE="utd"
 TIME="1652953420"
 SIZE="779"
+ENDFILE
+VALUE "<project>\hdl\fifo.sv,hdl"
+STATE="utd"
+TIME="1653519449"
+SIZE="1827"
+ENDFILE
+VALUE "<project>\hdl\fifo_uart.sv,hdl"
+STATE="utd"
+TIME="1653475475"
+SIZE="1240"
+ENDFILE
+VALUE "<project>\hdl\fifo_uart_controller.sv,hdl"
+STATE="utd"
+TIME="1653524063"
+SIZE="1360"
 ENDFILE
 VALUE "<project>\hdl\gmii_tx.sv,hdl"
 STATE="utd"
@@ -324,20 +365,80 @@ STATE="utd"
 TIME="1652954432"
 SIZE="155"
 ENDFILE
+VALUE "<project>\hdl\pulse_extender.sv,hdl"
+STATE="utd"
+TIME="1653425425"
+SIZE="624"
+ENDFILE
+VALUE "<project>\hdl\synchronizer.sv,hdl"
+STATE="utd"
+TIME="1652726502"
+SIZE="292"
+ENDFILE
+VALUE "<project>\hdl\tb_fifo_uart.sv,hdl"
+STATE="utd"
+TIME="1653475905"
+SIZE="2563"
+ENDFILE
+VALUE "<project>\hdl\tb_fifo_uart_controller.sv,hdl"
+STATE="utd"
+TIME="1653471173"
+SIZE="2402"
+ENDFILE
+VALUE "<project>\hdl\tb_top_fifo_uart.sv,hdl"
+STATE="utd"
+TIME="1653523531"
+SIZE="1467"
+ENDFILE
 VALUE "<project>\hdl\tb_top_module.sv,hdl"
 STATE="utd"
 TIME="1653348360"
 SIZE="625"
 ENDFILE
+VALUE "<project>\hdl\tb_vsc8541_register.sv,hdl"
+STATE="utd"
+TIME="1653392628"
+SIZE="931"
+ENDFILE
+VALUE "<project>\hdl\tb_vsc_register_read.sv,hdl"
+STATE="utd"
+TIME="1653424190"
+SIZE="697"
+ENDFILE
+VALUE "<project>\hdl\top_fifo_uart.sv,hdl"
+STATE="utd"
+TIME="1653524342"
+SIZE="1262"
+ENDFILE
 VALUE "<project>\hdl\top_module.sv,hdl"
 STATE="utd"
-TIME="1653379958"
-SIZE="2468"
+TIME="1653388159"
+SIZE="2480"
+ENDFILE
+VALUE "<project>\hdl\uart_rx.sv,hdl"
+STATE="utd"
+TIME="1653522841"
+SIZE="2920"
 ENDFILE
 VALUE "<project>\hdl\uart_tx.sv,hdl"
 STATE="utd"
 TIME="1653342502"
 SIZE="1909"
+ENDFILE
+VALUE "<project>\hdl\vsc8541_config.sv,hdl"
+STATE="utd"
+TIME="1653387467"
+SIZE="563"
+ENDFILE
+VALUE "<project>\hdl\vsc8541_register.sv,hdl"
+STATE="utd"
+TIME="1653428068"
+SIZE="3602"
+ENDFILE
+VALUE "<project>\hdl\vsc_register_read.sv,hdl"
+STATE="utd"
+TIME="1653426269"
+SIZE="2711"
 ENDFILE
 VALUE "<project>\simulation\CM3_compile_bfm.tcl,sim"
 STATE="utd"
@@ -563,8 +664,15 @@ LIST UserCustomizedFileList
 ENDLIST
 LIST OpenedFileList
 ORIENTATION;HORIZONTAL
+Reports;Reports;0
+ReportsCurrentItem;Run Programming Action:test_counter_PROGRAM.log
+HDL;hdl\gmii_tx.sv;0
+HDL;hdl\top_module.sv;0
+Constraint Manager;Constraint Manager;0
 StartPage;StartPage;0
-ACTIVEVIEW;StartPage
+HDL;constraint\io\user.pdc;0
+SmartDesign;test_counter;0
+ACTIVEVIEW;Reports
 ENDLIST
 LIST ModuleSubBlockList
 LIST "coreresetp_pcie_hotreset::work","component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vlog\core\coreresetp_pcie_hotreset.v","FALSE","FALSE"
@@ -574,12 +682,70 @@ SUBBLOCK "coreresetp_pcie_hotreset::work","component\Actel\DirectCore\CoreResetP
 ENDLIST
 LIST "counter::work","hdl\counter.sv","FALSE","FALSE"
 ENDLIST
+LIST "fifo::work","hdl\fifo.sv","FALSE","FALSE"
+ENDLIST
+LIST "fifo_uart::work","hdl\fifo_uart.sv","FALSE","FALSE"
+SUBBLOCK "fifo::work","hdl\fifo.sv","FALSE","FALSE"
+SUBBLOCK "uart_tx::work","hdl\uart_tx.sv","FALSE","FALSE"
+SUBBLOCK "fifo_uart_controller::work","hdl\fifo_uart_controller.sv","FALSE","FALSE"
+ENDLIST
 LIST "MSS_010::work","component\work\test_counter_sb_MSS\test_counter_sb_MSS_syn.v","FALSE","FALSE"
+ENDLIST
+LIST "pulse_extender::work","hdl\pulse_extender.sv","FALSE","FALSE"
+ENDLIST
+LIST "synchronizer::work","hdl\synchronizer.sv","FALSE","FALSE"
+ENDLIST
+LIST "top_fifo_uart::work","hdl\top_fifo_uart.sv","FALSE","FALSE"
+SUBBLOCK "pulse_extender::work","hdl\pulse_extender.sv","FALSE","FALSE"
+SUBBLOCK "counter::work","hdl\counter.sv","FALSE","FALSE"
+SUBBLOCK "fifo_uart::work","hdl\fifo_uart.sv","FALSE","FALSE"
+ENDLIST
+LIST "uart_rx::work","hdl\uart_rx.sv","FALSE","FALSE"
+SUBBLOCK "synchronizer::work","hdl\synchronizer.sv","FALSE","FALSE"
+SUBBLOCK "counter::work","hdl\counter.sv","FALSE","FALSE"
+SUBBLOCK "counter::work","hdl\counter.sv","FALSE","FALSE"
+ENDLIST
+LIST "uart_tx::work","hdl\uart_tx.sv","FALSE","FALSE"
+SUBBLOCK "counter::work","hdl\counter.sv","FALSE","FALSE"
+ENDLIST
+LIST "vsc_register_read::work","hdl\vsc_register_read.sv","FALSE","FALSE"
+SUBBLOCK "uart_tx::work","hdl\uart_tx.sv","FALSE","FALSE"
+SUBBLOCK "counter::work","hdl\counter.sv","FALSE","FALSE"
+SUBBLOCK "pulse_extender::work","hdl\pulse_extender.sv","FALSE","FALSE"
+SUBBLOCK "vsc8541_register::work","hdl\vsc8541_register.sv","FALSE","FALSE"
+ENDLIST
+LIST "counter::work","hdl\counter.sv","FALSE","FALSE"
+ENDLIST
+LIST "fifo::work","hdl\fifo.sv","FALSE","FALSE"
+ENDLIST
+LIST "fifo_uart::work","hdl\fifo_uart.sv","FALSE","FALSE"
+SUBBLOCK "fifo::work","hdl\fifo.sv","FALSE","FALSE"
+SUBBLOCK "uart_tx::work","hdl\uart_tx.sv","FALSE","FALSE"
+SUBBLOCK "fifo_uart_controller::work","hdl\fifo_uart_controller.sv","FALSE","FALSE"
 ENDLIST
 LIST "uart_tx::work","hdl\uart_tx.sv","FALSE","FALSE"
 SUBBLOCK "counter::work","hdl\counter.sv","FALSE","FALSE"
 ENDLIST
 LIST "counter::work","hdl\counter.sv","FALSE","FALSE"
+ENDLIST
+LIST "counter::work","hdl\counter.sv","FALSE","FALSE"
+ENDLIST
+LIST "counter::work","hdl\counter.sv","FALSE","FALSE"
+ENDLIST
+LIST "counter::work","hdl\counter.sv","FALSE","FALSE"
+ENDLIST
+LIST "counter::work","hdl\counter.sv","FALSE","FALSE"
+ENDLIST
+LIST "counter::work","hdl\counter.sv","FALSE","FALSE"
+ENDLIST
+LIST "counter::work","hdl\counter.sv","FALSE","FALSE"
+ENDLIST
+LIST "FCCC_C0::work","component\work\FCCC_C0\FCCC_C0.v","TRUE","FALSE"
+SUBBLOCK "FCCC_C0_FCCC_C0_0_FCCC::work","component\work\FCCC_C0\FCCC_C0_0\FCCC_C0_FCCC_C0_0_FCCC.v","FALSE","FALSE"
+ENDLIST
+LIST "FCCC_C0_FCCC_C0_0_FCCC::work","component\work\FCCC_C0\FCCC_C0_0\FCCC_C0_FCCC_C0_0_FCCC.v","FALSE","FALSE"
+ENDLIST
+LIST "fifo_uart_controller::work","hdl\fifo_uart_controller.sv","FALSE","FALSE"
 ENDLIST
 LIST "gmii_tx::work","hdl\gmii_tx.sv","FALSE","FALSE"
 ENDLIST
@@ -592,6 +758,8 @@ LIST "OSC_C0_OSC_C0_0_OSC::work","component\work\OSC_C0\OSC_C0_0\OSC_C0_OSC_C0_0
 SUBBLOCK "RCOSC_1MHZ_FAB::work","component\Actel\SgCore\OSC\2.0.101\osc_comps.v","FALSE","FALSE"
 SUBBLOCK "RCOSC_1MHZ::work","component\Actel\SgCore\OSC\2.0.101\osc_comps.v","FALSE","FALSE"
 ENDLIST
+LIST "pulse_extender::work","hdl\pulse_extender.sv","FALSE","FALSE"
+ENDLIST
 LIST "RCOSC_1MHZ::work","component\Actel\SgCore\OSC\2.0.101\osc_comps.v","FALSE","FALSE"
 ENDLIST
 LIST "RCOSC_1MHZ_FAB::work","component\Actel\SgCore\OSC\2.0.101\osc_comps.v","FALSE","FALSE"
@@ -602,7 +770,8 @@ LIST "RCOSC_25_50MHZ_FAB::work","component\Actel\SgCore\OSC\2.0.101\osc_comps.v"
 ENDLIST
 LIST "test_counter::work","component\work\test_counter\test_counter.v","TRUE","FALSE"
 SUBBLOCK "OSC_C0::work","component\work\OSC_C0\OSC_C0.v","TRUE","FALSE"
-SUBBLOCK "top_module::work","hdl\top_module.sv","FALSE","FALSE"
+SUBBLOCK "top_fifo_uart::work","hdl\top_fifo_uart.sv","FALSE","FALSE"
+SUBBLOCK "vsc8541_config::work","hdl\vsc8541_config.sv","FALSE","FALSE"
 ENDLIST
 LIST "test_counter_sb::work","component\work\test_counter_sb\test_counter_sb.v","TRUE","FALSE"
 SUBBLOCK "CoreResetP::work","component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vlog\core\coreresetp.v","FALSE","FALSE"
@@ -622,11 +791,38 @@ ENDLIST
 LIST "testbench::work","hdl\tb_top_module.sv","FALSE","FALSE"
 SUBBLOCK "top_module::work","hdl\top_module.sv","FALSE","FALSE"
 ENDLIST
-LIST "top_module::work","hdl\top_module.sv","FALSE","FALSE"
-SUBBLOCK "counter::work","hdl\counter.sv","FALSE","FALSE"
+LIST "testbench_fifo_uart::work","hdl\tb_fifo_uart.sv","FALSE","FALSE"
+SUBBLOCK "fifo_uart::work","hdl\fifo_uart.sv","FALSE","FALSE"
+ENDLIST
+LIST "testbench_fifo_uart_controller::work","hdl\tb_fifo_uart_controller.sv","FALSE","FALSE"
 SUBBLOCK "uart_tx::work","hdl\uart_tx.sv","FALSE","FALSE"
+SUBBLOCK "fifo_uart_controller::work","hdl\fifo_uart_controller.sv","FALSE","FALSE"
+ENDLIST
+LIST "testbench_top_fifo_uart::work","hdl\tb_top_fifo_uart.sv","FALSE","FALSE"
+SUBBLOCK "top_fifo_uart::work","hdl\top_fifo_uart.sv","FALSE","FALSE"
+SUBBLOCK "uart_rx::work","hdl\uart_rx.sv","FALSE","FALSE"
+ENDLIST
+LIST "testbench_vsc8541_register::work","hdl\tb_vsc8541_register.sv","FALSE","FALSE"
+SUBBLOCK "vsc8541_register::work","hdl\vsc8541_register.sv","FALSE","FALSE"
+ENDLIST
+LIST "testbench_vsc_register_read::work","hdl\tb_vsc_register_read.sv","FALSE","FALSE"
+SUBBLOCK "vsc_register_read::work","hdl\vsc_register_read.sv","FALSE","FALSE"
+ENDLIST
+LIST "top_fifo_uart::work","hdl\top_fifo_uart.sv","FALSE","FALSE"
+SUBBLOCK "pulse_extender::work","hdl\pulse_extender.sv","FALSE","FALSE"
+SUBBLOCK "fifo_uart::work","hdl\fifo_uart.sv","FALSE","FALSE"
+SUBBLOCK "counter::work","hdl\counter.sv","FALSE","FALSE"
+ENDLIST
+LIST "top_module::work","hdl\top_module.sv","FALSE","FALSE"
+SUBBLOCK "uart_tx::work","hdl\uart_tx.sv","FALSE","FALSE"
+SUBBLOCK "counter::work","hdl\counter.sv","FALSE","FALSE"
 SUBBLOCK "gmii_tx::work","hdl\gmii_tx.sv","FALSE","FALSE"
 SUBBLOCK "gray::work","hdl\gray.sv","FALSE","FALSE"
+ENDLIST
+LIST "vsc8541_config::work","hdl\vsc8541_config.sv","FALSE","FALSE"
+ENDLIST
+LIST "vsc8541_register::work","hdl\vsc8541_register.sv","FALSE","FALSE"
+SUBBLOCK "counter::work","hdl\counter.sv","FALSE","FALSE"
 ENDLIST
 LIST "XTLOSC::work","component\Actel\SgCore\OSC\2.0.101\osc_comps.v","FALSE","FALSE"
 ENDLIST

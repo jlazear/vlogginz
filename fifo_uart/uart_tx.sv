@@ -4,8 +4,7 @@
 module uart_tx 
 	#(
 		WIDTH=8,
-		DIVISOR=100,  // DIVISOR must be even
-		LITTLE_ENDIAN=0)  // LE = send LSB first, BE = send MSB first
+		DIVISOR=100)  // DIVISOR must be even
 	(
 	input clk,    // Clock
 	input i_reset,
@@ -47,7 +46,7 @@ module uart_tx
 			if (state == IDLE || state == STOP) begin
 				if (i_dv) mem <= i_data;
 			end else if (state == DATA) begin
-				mem <= LITTLE_ENDIAN ? mem >> 1 : mem << 1;
+				mem <= mem >> 1;
 			end
 		end else
 			mem <= mem;
@@ -85,7 +84,7 @@ module uart_tx
 		if (state == START)
 			tx = '0;
 		else if (state == DATA)
-			tx = LITTLE_ENDIAN ? mem[0] : mem[WIDTH-1];
+			tx = mem[0];
 	end
 	assign o_tx = tx;
 	assign o_busy = (state == START || state == DATA);
