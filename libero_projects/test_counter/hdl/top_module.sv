@@ -1,15 +1,16 @@
-module top_module 
-	#(parameter INVERT_ENABLE=1,
-		parameter INVERT_OUTPUT=1
-		)
-	(
-	input clk,    // Clock
-	input i_reset,
-	input i_enable,
-	output [7:0] o_data,
-	output o_tx
+module top_module #(
+	parameter INVERT_ENABLE = 1,
+	parameter INVERT_OUTPUT = 1
+) (
+	input        clk     , // Clock
+	input        i_reset ,
+	input        i_enable,
+	output [7:0] o_data  ,
+	output       o_tx,
+	output [7:0] o_txd,
+	output o_tx_en
 );
-	localparam WIDTH = 26;
+	localparam WIDTH = 30;
 
 	wire [WIDTH-1 : 0] c_out;
 	wire [7:0] gray_out;
@@ -29,7 +30,7 @@ module top_module
 
 	// assign gray_out = c_out[WIDTH-1 : WIDTH - 8];
 	gray u_gray (
-		.in (c_out[25:18]),
+		.in (c_out[WIDTH-1 : WIDTH-8]),
 		.out(gray_out));
 
 	assign o_data = INVERT_OUTPUT ? ~gray_out : gray_out;
@@ -95,5 +96,14 @@ module top_module
 		.i_dv   (uart_dv),
 		.o_tx   (tx),
 		.o_busy (_x));
+
+	// gmii output, sits on top of uart FSM
+	gmii_tx u_gmii_tx (
+		.clk    (clk),
+		.i_reset(i_reset),
+		.i_dv   (changed),
+		.i_data (gray_out),
+		.o_txd  (o_txd),
+		.o_tx_en(o_tx_en));
 
 endmodule
