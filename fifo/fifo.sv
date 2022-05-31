@@ -27,7 +27,7 @@ module fifo
 	assign full = (n_elem == 0) && first;
 	assign empty = (n_elem == 0) && !first;
 	assign almost_full = full || (n_elem >= DEPTH - LEVEL);
-	assign almost_empty = empty || (n_elem <= LEVEL);
+	assign almost_empty = empty || (n_elem <= LEVEL && !full);
 
 	always @(posedge clk) begin
 		mem <= mem;
