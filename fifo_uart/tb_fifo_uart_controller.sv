@@ -12,7 +12,7 @@ localparam TXPERIOD = period*DIVISOR; //
 localparam TXPHASE = 2;  // not relevant to dut, but sync manually generated txclk w/ dclk
 
 logic clk, reset, txclk;
-logic empty, busy, r_en, dv, enable;
+logic empty, busy, r_en, dv, tx_enable;
 logic [7:0] r_data, data;
 enum {START, ENABLED, DISABLED, DONE} tb_state;
 
@@ -20,7 +20,7 @@ enum {START, ENABLED, DISABLED, DONE} tb_state;
 fifo_uart_controller dut 
 	(.clk(clk),
 		.i_reset (reset),
-		.i_enable(enable),
+		.i_tx_enable(tx_enable),
 		.i_empty (empty),
 		.i_busy  (busy),
 		.i_r_data(r_data),
@@ -47,7 +47,7 @@ initial begin
 	busy <= '0;
 	empty <= '1;
 	r_data <= 8'hAA;
-	enable <= '0;
+	tx_enable <= '0;
 
 	$display("TX_BAUDRATE = %0d, TXPERIOD = %0d", BAUDRATE, TXPERIOD);
 	$display("DCLKPERIOD = %0d", DIVISOR*period);
@@ -58,7 +58,7 @@ initial begin
 	@(posedge txclk) reset <= '0;
 	@(posedge txclk);
 	tb_state <= ENABLED;
-	enable <= '1;
+	tx_enable <= '1;
 
 	// @(posedge clk) reset <= '1;
 	// @(posedge clk) reset <= '0;
@@ -90,13 +90,13 @@ initial begin
 
 	repeat(40)
 		@(posedge txclk);
-	enable <= '0;
+	tx_enable <= '0;
 	tb_state <= DISABLED;
 
 	repeat(40)
 		@(posedge txclk);
 
-	enable <= '1;
+	tx_enable <= '1;
 	tb_state <= ENABLED;
 
 	repeat(20)

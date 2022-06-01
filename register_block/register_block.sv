@@ -11,11 +11,13 @@ module register_block
 	input [WIDTH-1 : 0] i_w_value,
 	input i_r_en,
 	input [$clog2(DEPTH)-1 : 0] i_r_addr,
-	output [WIDTH-1 : 0] o_r_value
+	output [WIDTH-1 : 0] o_r_value,
+	output o_r_valid
 );
 
 	logic [WIDTH-1 : 0] mem [DEPTH-1 : 0];
 	logic [WIDTH-1 : 0] read_value;
+	logic r_valid;
 
 	always @(posedge clk)
 		if (reset) begin
@@ -28,10 +30,12 @@ module register_block
 
 	// read circuit
 	always @(posedge clk) begin
+		r_valid <= '0;
 		if (reset) begin
 			read_value <= '0;
 		end else if (i_r_en) begin
 			read_value <= mem[i_r_addr];
+			r_valid <= '1;
 		end else
 			read_value <= read_value;
 	end
@@ -46,5 +50,6 @@ module register_block
 	end
 
 	assign o_r_value = read_value;
+	assign o_r_valid = r_valid;
 
 endmodule

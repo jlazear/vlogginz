@@ -14,11 +14,15 @@ localparam TXPERIOD = 10**9/BAUDRATE; // period*DIVISOR; //
 localparam TXPHASE = TXPERIOD * 1/4;
 
 logic clk, reset, txclk;
-logic tx, w_en, r_en, busy, dv;
-logic [WIDTH-1 : 0] data, w_addr, r_addr, temp_addr;
+logic tx, w_en, r_en, busy, dv, r_valid, o_dv;
+logic [WIDTH-1 : 0] data, w_addr, r_addr, temp_addr, o_data, temp_data;
 logic [4*WIDTH-1 : 0] w_data, r_data;
+logic [23:0] lfsr;
+initial lfsr <= '0;
+always @(posedge clk) lfsr <= {lfsr[22:0], ~lfsr[23]};
 
 enum {START, COMMAND, ADDRESS, VALUE, DONE} tb_state;
+localparam [7:0] READ_CMD = 8'h00, WRITE_CMD = 8'hAA;
 logic [$clog2(WIDTH):0] txcnt;
 
 
@@ -31,10 +35,18 @@ command_parser_uart #(
 	) dut (
 	.clk     (clk),
 	.i_reset (reset),
-	.i_rx    (tx),
+	// serial lines
+	.i_rx    (rx),
+	.o_tx     (tx),
+	// memory write signals
+	.o_w_en  (w_en),
 	.o_w_addr(w_addr),
 	.o_w_data(w_data),
-	.o_w_en  (w_en));
+	// memory read signals
+	.o_r_addr(r_addr),
+	.o_r_en  (r_en),
+	.i_r_data (r_data),
+	.i_r_valid(r_valid));
 
 register_block #(
 		.WIDTH(4*WIDTH),
@@ -47,7 +59,8 @@ register_block #(
 		.i_w_value(w_data),
 		.i_r_en   (r_en),
 		.i_r_addr (r_addr),
-		.o_r_value(r_data)
+		.o_r_value(r_data),
+		.o_r_valid(r_valid)
 	);
 
 uart_tx #( 
@@ -58,75 +71,86 @@ uart_tx #(
 	.i_reset(reset),
 	.i_data (data),
 	.i_dv   (dv),
-	.o_tx   (tx),
+	.o_tx   (rx),
 	.o_busy (busy)
 	);
 
-task write_value(input logic [WIDTH-1 : 0] addr, input logic [4*WIDTH-1 : 0] value);
+uart_rx #(
+	.WIDTH       (WIDTH),
+	.DIVISOR     (DIVISOR),
+	.SAMPLE_PHASE(DIVISOR/2)
+	) u_uart_rx (
+	.clk         (clk),
+	.i_reset     (reset),
+	.i_rx        (tx),
+	.o_data      (o_data),
+	.o_data_valid(o_dv)
+	);
+
+task send_command(input [7:0] cmd, input [7:0] addr, input [31:0] value);
 	begin
-		@(posedge txclk);
-		// send command
-		@(posedge txclk);
-		tb_state <= COMMAND;
-		data <= 'h01;
-		dv <= '1;
-		@(posedge txclk)
-		dv <= '0;
-
-		repeat(WIDTH)
-			@(posedge txclk)
-
-		// send addr
-		@(posedge txclk);
-		tb_state <= ADDRESS;
-		data <= addr;
-		dv <= '1;
-		@(posedge txclk)
-		dv <= '0;
-
-		repeat(WIDTH)
-			@(posedge txclk)
-
-		// send value
-		@(posedge txclk);
-		tb_state <= VALUE;
-		data <= value[31:24];  // byte 1
-		dv <= '1;
-		@(posedge txclk)
-		dv <= '0;
-
-		repeat(WIDTH)
-			@(posedge txclk)
-
-		@(posedge txclk);
-		data <= value[23:16];  // byte 2
-		dv <= '1;
-		@(posedge txclk)
-		dv <= '0;
-
-		repeat(WIDTH)
-			@(posedge txclk)
-
-		@(posedge txclk);
-		data <= value[15:8];  // byte 3
-		dv <= '1;
-		@(posedge txclk)
-		dv <= '0;
-
-		repeat(WIDTH)
-			@(posedge txclk)
-
-		@(posedge txclk);
-		data <= value[7:0];  // byte 4
-		dv <= '1;
-		@(posedge txclk)
-		dv <= '0;
-
-		repeat(WIDTH)
+			// command
 			@(posedge txclk);
-		@(posedge txclk);
+			tb_state <= COMMAND;
+			data <= cmd;
+			dv <= '1;
+			@(posedge txclk);
+			dv <= '0;
+
+			repeat(10)
+				@(posedge txclk);			// address
+
+			@(posedge txclk);
+			tb_state <= ADDRESS;
+			data <= addr;
+			dv <= '1;
+			@(posedge txclk);
+			dv <= '0;
+
+			repeat(10)
+				@(posedge txclk);
+
+			// value
+			tb_state <= VALUE;
+			@(posedge txclk);
+			data <= value[31:24];
+			dv <= '1;
+			@(posedge txclk);
+			dv <= '0;
+
+			repeat(10)
+				@(posedge txclk);
+
+			@(posedge txclk);
+			data <= value[23:16];
+			dv <= '1;
+			@(posedge txclk);
+			dv <= '0;
+
+			repeat(10)
+				@(posedge txclk);
+
+			@(posedge txclk);
+			data <= value[15:8];
+			dv <= '1;
+			@(posedge txclk);
+			dv <= '0;
+
+			repeat(10)
+				@(posedge txclk);
+
+			@(posedge txclk);
+			data <= value[7:0];
+			dv <= '1;
+			@(posedge txclk);
+			dv <= '0;
+
+			repeat(10)
+				@(posedge txclk);
+
 	end
-endtask : write_value
+endtask : send_command
+
 
 initial begin
 	tb_state <= START;
@@ -139,70 +163,18 @@ initial begin
 	@(posedge clk) reset <= '1;
 	@(posedge clk) reset <= '0;
 
+	// fill the buffer
 	for (int i=0; i<=2**WIDTH; i++) begin
-		write_value(.addr(temp_addr), .value(32'hbbb00b00));
+		temp_data <= i;
+		send_command(WRITE_CMD, temp_addr, {lfsr, temp_data});
 		@(posedge txclk) temp_addr <= temp_addr + 1'b1;
 	end
 
-	// // send command
-	// @(posedge txclk);
-	// tb_state <= COMMAND;
-	// data <= 'h01;
-	// dv <= '1;
-	// @(posedge txclk)
-	// dv <= '0;
+	repeat(10)
+		@(posedge txclk);
 
-	// repeat(WIDTH)
-	// 	@(posedge txclk)
-
-	// // send addr
-	// @(posedge txclk);
-	// tb_state <= ADDRESS;
-	// data <= 'h12;
-	// dv <= '1;
-	// @(posedge txclk)
-	// dv <= '0;
-
-	// repeat(WIDTH)
-	// 	@(posedge txclk)
-
-	// // send value
-	// @(posedge txclk);
-	// tb_state <= ADDRESS;
-	// data <= 'h34;  // byte 1
-	// dv <= '1;
-	// @(posedge txclk)
-	// dv <= '0;
-
-	// repeat(WIDTH)
-	// 	@(posedge txclk)
-
-	// @(posedge txclk);
-	// data <= 'h56;  // byte 2
-	// dv <= '1;
-	// @(posedge txclk)
-	// dv <= '0;
-
-	// repeat(WIDTH)
-	// 	@(posedge txclk)
-
-	// @(posedge txclk);
-	// data <= 'h78;  // byte 3
-	// dv <= '1;
-	// @(posedge txclk)
-	// dv <= '0;
-
-	// repeat(WIDTH)
-	// 	@(posedge txclk)
-
-	// @(posedge txclk);
-	// data <= 'h9a;  // byte 4
-	// dv <= '1;
-	// @(posedge txclk)
-	// dv <= '0;
-
-	// repeat(WIDTH)
-	// 	@(posedge txclk)
+	// read register
+	send_command(READ_CMD, 8'hbb, '0);
 
 
 	tb_state <= DONE;

@@ -2,7 +2,8 @@ module fifo_uart #(
 	parameter WIDTH=8,
 	parameter DEPTH=128,
 	parameter DIVISOR=100,
-	parameter LEVEL=16
+	parameter LEVEL=16,
+	parameter LITTLE_ENDIAN=0
 	)(
 	input clk,    // Clock
 	input i_reset,
@@ -51,7 +52,8 @@ module fifo_uart #(
 
 	uart_tx #(
 		.WIDTH  (WIDTH  ),
-		.DIVISOR(DIVISOR)
+		.DIVISOR(DIVISOR),
+		.LITTLE_ENDIAN(LITTLE_ENDIAN)
 	) u_uart (
 		.clk    (clk  ),
 		.i_reset(i_reset),
