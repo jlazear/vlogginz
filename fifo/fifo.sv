@@ -22,6 +22,7 @@ module fifo
 	logic [WORD_WIDTH-1 : 0] out_data;
 	logic [$clog2(DEPTH)-1 : 0] ptr1, ptr2, n_elem;
 	logic first;  // flag on if we've written to first element in memory
+	logic full, empty, almost_full, almost_empty;
 
 	assign n_elem = (ptr2 >= ptr1) ? (ptr2 - ptr1) : (DEPTH - ptr1) + ptr2;
 	assign full = (n_elem == 0) && first;
