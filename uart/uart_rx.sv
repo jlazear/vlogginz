@@ -1,15 +1,13 @@
 `ifndef UART_RX
 	`define UART_RX 1
 
-`include "../counter/counter.sv"
-`include "../synchronizer/synchronizer.sv"
-
 module uart_rx
 	#(
 		WIDTH=8,
 		DIVISOR=100,  // DIVISOR should be even
-		SAMPLE_PHASE=49)
-	(
+		SAMPLE_PHASE=49,
+		LITTLE_ENDIAN=0 // LE = receive LSB first, BE = receive MSB first
+		) (
 	input clk,
 	input i_reset,
 	input i_rx, 
@@ -93,14 +91,14 @@ module uart_rx
 			mem <= '1;
 			data <= '0;
 		end else if (sampling) begin
-			mem <= {mem[WIDTH-1 : 0], s};
+			mem <= LITTLE_ENDIAN ? {s, mem[WIDTH : 1]} : {mem[WIDTH-1 : 0], s};
 		end else if (sampled) begin
 			if (next_state == SENDING)  // >:(
-				data <= mem[WIDTH-1 : 0];
+				data <= LITTLE_ENDIAN ? mem[WIDTH:1] : mem[WIDTH-1 : 0];
 		end
 	end
 	
-	assign start_bit = mem[WIDTH];
+	assign start_bit = LITTLE_ENDIAN ? mem[0] : mem[WIDTH];
 	assign end_bit = s;
 
 	// state machine
