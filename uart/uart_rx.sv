@@ -6,7 +6,7 @@ module uart_rx
 		WIDTH=8,
 		DIVISOR=100,  // DIVISOR should be even
 		SAMPLE_PHASE=49,
-		LITTLE_ENDIAN=0 // LE = receive LSB first, BE = receive MSB first
+		LITTLE_ENDIAN=1 // LE = receive LSB first, BE = receive MSB first
 		) (
 	input clk,
 	input i_reset,
