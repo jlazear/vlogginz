@@ -5,20 +5,20 @@ module testbench;
 localparam period = 10;
 localparam WIDTH = 8;
 localparam NUM_WORDS = 4;
-localparam LITTLE_ENDIAN = 0;
+// localparam LITTLE_ENDIAN = 0;
 
 logic clk, reset;
 enum {START, DONE} tb_state;
 
-logic [7:0] med_data, med_data2;
-logic [31:0] i_data, o_data, o_data2;
-logic i_dv, med_dv, o_dv, med_dv2, o_dv2;
+logic [7:0] med_data, med_data2, med_data3;
+logic [31:0] i_data, o_data, o_data2, o_data3;
+logic i_dv, med_dv, o_dv, med_dv2, o_dv2, o_dv3;
 
 
 serializer #(
 	.WIDTH        (WIDTH        ),
 	.NUM_WORDS    (NUM_WORDS    ),
-	.LITTLE_ENDIAN(LITTLE_ENDIAN)
+	.LITTLE_ENDIAN(0)
 ) u_serializer (
 	.clk    (clk     ),
 	.i_reset(reset   ),
@@ -31,7 +31,7 @@ serializer #(
 deserializer #(
 	.WIDTH        (WIDTH),
 	.NUM_WORDS    (NUM_WORDS),
-	.LITTLE_ENDIAN(LITTLE_ENDIAN)	
+	.LITTLE_ENDIAN(0)	
 	) u_deserializer (
 	.clk			(clk),
 	.i_reset      (reset),
@@ -45,7 +45,7 @@ deserializer #(
 serializer #(
 	.WIDTH        (WIDTH        ),
 	.NUM_WORDS    (NUM_WORDS/2  ),
-	.LITTLE_ENDIAN(LITTLE_ENDIAN)
+	.LITTLE_ENDIAN(0)
 ) u_serializer2 (
 	.clk    (clk     ),
 	.i_reset(reset   ),
@@ -58,7 +58,7 @@ serializer #(
 deserializer #(
 	.WIDTH        (WIDTH),
 	.NUM_WORDS    (NUM_WORDS),
-	.LITTLE_ENDIAN(LITTLE_ENDIAN)	
+	.LITTLE_ENDIAN(0)	
 	) u_deserializer2 (
 	.clk			(clk),
 	.i_reset      (reset),
@@ -66,6 +66,33 @@ deserializer #(
 	.i_dv         (med_dv2),
 	.o_data       (o_data2),
 	.o_dv         (o_dv2)
+	);
+
+
+serializer #(
+	.WIDTH        (WIDTH        ),
+	.NUM_WORDS    (NUM_WORDS    ),
+	.LITTLE_ENDIAN(1)
+) u_serializer3 (
+	.clk    (clk     ),
+	.i_reset(reset   ),
+	.i_data (i_data  ),
+	.i_dv   (i_dv    ),
+	.o_data (med_data3),
+	.o_dv   (med_dv3  )
+);
+
+deserializer #(
+	.WIDTH        (WIDTH),
+	.NUM_WORDS    (NUM_WORDS),
+	.LITTLE_ENDIAN(1)	
+	) u_deserializer3 (
+	.clk			(clk),
+	.i_reset      (reset),
+	.i_data       (med_data3),
+	.i_dv         (med_dv3),
+	.o_data       (o_data3),
+	.o_dv         (o_dv3)
 	);
 
 

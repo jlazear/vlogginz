@@ -11,9 +11,10 @@ localparam TXPHASE = TXPERIOD * 1/4;
 logic clk, reset, txclk;
 enum {START, WRITE, TX, DONE} tb_state;
 logic i_rx, i_tx_en, o_tx, o_full, o_afull, o_aempty, o_empty;
-logic [7:0] w_data, ext_o_data;
+logic [7:0] w_data, ext_o_data, o_debug;
 logic ext_full, ext_afull, ext_empty, ext_aempty, ext_o_dv;
 logic w_en;
+logic [1:0] i_button;
 
 logic [31:0] final_data;
 logic final_dv;
@@ -30,12 +31,13 @@ top_uart_test #(
 	.clk     (clk),
 	.i_reset (reset),
 	.i_rx    (i_rx),
-	.i_tx_en (i_tx_en),
+	.i_button(i_button),
 	.o_tx    (o_tx),
 	.o_full  (o_full),
 	.o_afull (o_afull),
 	.o_aempty(o_aempty),
-	.o_empty (o_empty)
+	.o_empty (o_empty),
+	.o_debug (o_debug)
 	);
 
 fifo_uart #(
@@ -85,7 +87,7 @@ deserializer #(
 initial begin
 	tb_state <= START;
 	reset <= '0;
-	i_tx_en <= '0;
+	i_button <= '0;
 	w_en <= '0;
 	w_data <= '0;
 
@@ -98,6 +100,10 @@ initial begin
 	tb_state <= WRITE;
 	@(posedge clk);
 	w_en <= '1;
+	w_data <= 8'haa;
+	@(posedge clk);
+	w_data <= 8'h00;
+	@(posedge clk);
 	w_data <= 8'haa;
 	@(posedge clk);
 	w_data <= 8'hbb;
@@ -114,9 +120,9 @@ initial begin
 
 	tb_state <= TX;
 	repeat(20) begin
-		i_tx_en <= '1;
+		i_button[0] <= '1;
 		@(posedge txclk)
-		i_tx_en <= '0;
+		i_button[0] <= '0;
 		repeat (50)
 			@(posedge txclk);
 

@@ -5,7 +5,7 @@ module uart_tx
 	#(
 		WIDTH=8,
 		DIVISOR=100,  // DIVISOR must be even
-		LITTLE_ENDIAN=0  // LE = send LSB first, BE = send MSB first
+		LITTLE_ENDIAN=1  // LE = send LSB first, BE = send MSB first
 	) (
 	input clk,    // Clock
 	input i_reset,

@@ -1,18 +1,22 @@
 `timescale 1ns/1ns
 
-module testbench;
+module testbench_command_controller;
 
 localparam period = 10;
 
 logic clk, reset;
-logic [7:0] data, w_addr, r_addr;
+logic [7:0] w_addr, r_addr;
 logic [31:0] w_data;
+logic [8*6 - 1 : 0] data;
 logic dv, w_en, r_en;
 enum {START, CMD, ADDR, VALUE, INTERMISSION, DONE} tb_state;
 localparam [7:0] READ_CMD = 8'h00, WRITE_CMD = 8'hAA;
 
 
-command_controller #(.PULSE_W_EN_MAX_LEN(1)) dut (
+command_controller #(
+	.WORD_WIDTH (8),
+	.VALUE_WORDS(4)
+	) dut (
 	.clk     (clk),
 	.i_reset (reset),
 	.i_data  (data),
@@ -25,64 +29,70 @@ command_controller #(.PULSE_W_EN_MAX_LEN(1)) dut (
 
 task send_command(input [7:0] cmd, input [7:0] addr, input [31:0] value);
 	begin
-			// command
-			@(posedge clk);
-			tb_state <= CMD;
-			data <= cmd;
-			dv <= '1;
-			@(posedge clk);
-			dv <= '0;
+		@(posedge clk);
+		data <= {cmd, addr, value};
+		dv <= '1;
+		@(posedge clk)
+		dv <= '0;
 
-			repeat(10)
-				@(posedge clk);			// address
+			// // command
+			// @(posedge clk);
+			// tb_state <= CMD;
+			// data <= cmd;
+			// dv <= '1;
+			// @(posedge clk);
+			// dv <= '0;
 
-			@(posedge clk);
-			tb_state <= ADDR;
-			data <= addr;
-			dv <= '1;
-			@(posedge clk);
-			dv <= '0;
+			// repeat(10)
+			// 	@(posedge clk);			// address
 
-			repeat(10)
-				@(posedge clk);
+			// @(posedge clk);
+			// tb_state <= ADDR;
+			// data <= addr;
+			// dv <= '1;
+			// @(posedge clk);
+			// dv <= '0;
 
-			// value
-			tb_state <= VALUE;
-			@(posedge clk);
-			data <= value[31:24];
-			dv <= '1;
-			@(posedge clk);
-			dv <= '0;
+			// repeat(10)
+			// 	@(posedge clk);
 
-			repeat(10)
-				@(posedge clk);
+			// // value
+			// tb_state <= VALUE;
+			// @(posedge clk);
+			// data <= value[31:24];
+			// dv <= '1;
+			// @(posedge clk);
+			// dv <= '0;
 
-			@(posedge clk);
-			data <= value[23:16];
-			dv <= '1;
-			@(posedge clk);
-			dv <= '0;
+			// repeat(10)
+			// 	@(posedge clk);
 
-			repeat(10)
-				@(posedge clk);
+			// @(posedge clk);
+			// data <= value[23:16];
+			// dv <= '1;
+			// @(posedge clk);
+			// dv <= '0;
 
-			@(posedge clk);
-			data <= value[15:8];
-			dv <= '1;
-			@(posedge clk);
-			dv <= '0;
+			// repeat(10)
+			// 	@(posedge clk);
 
-			repeat(10)
-				@(posedge clk);
+			// @(posedge clk);
+			// data <= value[15:8];
+			// dv <= '1;
+			// @(posedge clk);
+			// dv <= '0;
 
-			@(posedge clk);
-			data <= value[7:0];
-			dv <= '1;
-			@(posedge clk);
-			dv <= '0;
+			// repeat(10)
+			// 	@(posedge clk);
 
-			repeat(10)
-				@(posedge clk);
+			// @(posedge clk);
+			// data <= value[7:0];
+			// dv <= '1;
+			// @(posedge clk);
+			// dv <= '0;
+
+			// repeat(10)
+			// 	@(posedge clk);
 
 	end
 endtask : send_command
@@ -119,4 +129,4 @@ initial begin
 	forever #(period/2) clk <= ~clk;
 end
 
-endmodule : testbench
+endmodule : testbench_command_controller
