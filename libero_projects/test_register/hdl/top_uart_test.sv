@@ -31,6 +31,11 @@ module top_uart_test #(
 	logic [7:0] debug;
 	logic [1:0] button;
 	logic reset;
+	
+	logic [WORD_WIDTH-1:0] o_cmd, scc_addr;
+	logic [WORD_WIDTH*REG_WIDTH-1:0] scc_value;
+	logic [1:0] o_state;
+	logic scc_w_en, scc_r_en;
 
 	assign reset = &button;
 
@@ -74,22 +79,6 @@ module top_uart_test #(
 		.i_reset(reset),
 		.i_x    (p_dv),
 		.o_x    (dv_pulse)
-		);
-
-	command_controller #(
-		.WORD_WIDTH (WORD_WIDTH),
-		.VALUE_WORDS(REG_WIDTH)
-		) u_cmd_controller (
-		.clk     (clk),
-		.i_reset (reset),
-		.i_data  (p_data),
-		.i_dv    (dv_pulse),
-		.o_w_addr(w_addr),
-		.o_w_data(w_data),
-		.o_w_en  (w_en),
-		.o_r_addr(r_addr),
-		.o_r_en  (r_en),
-		.o_cmd   (cmd)
 		);
 
 	register_block #(
@@ -169,10 +158,6 @@ module top_uart_test #(
 		);
 
 	// #DELME
-	logic [WORD_WIDTH-1:0] o_cmd, scc_addr;
-	logic [WORD_WIDTH*REG_WIDTH-1:0] scc_value;
-	logic [1:0] o_state;
-	logic scc_w_en, scc_r_en;
 	simple_command_controller #(
 		.WORD_WIDTH (WORD_WIDTH),
 		.VALUE_WORDS(REG_WIDTH)
