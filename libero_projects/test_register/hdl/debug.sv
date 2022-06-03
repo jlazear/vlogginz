@@ -22,6 +22,7 @@ module debug #(
 );
 
 	logic [1:0] buttons;
+	logic reset;
 
 	debouncer #(
 		.DEADZONE_WIDTH(DEADZONE_WIDTH)
