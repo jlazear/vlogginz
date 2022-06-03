@@ -92,22 +92,6 @@ module top_uart_test #(
 		.o_cmd   (cmd)
 		);
 
-	// register_block #(
-	// 	.WIDTH(REG_WIDTH*WORD_WIDTH),
-	// 	.DEPTH(REG_DEPTH)
-	// 	) u_register_block (
-	// 	.clk      (clk),
-	// 	.reset    (reset),
-	// 	.i_w_en   (w_en),
-	// 	.i_w_addr (w_addr),
-	// 	.i_w_value(w_data),
-	// 	.i_r_en   (d2_pulse),
-	// 	.i_r_addr ('0),
-	// 	.o_r_value(pr_data),
-	// 	.o_r_valid(pr_valid)
-	// 	);
-
-	// #DELME #FIXME maybe???
 	register_block #(
 		.WIDTH(REG_WIDTH*WORD_WIDTH),
 		.DEPTH(REG_DEPTH)
@@ -119,12 +103,9 @@ module top_uart_test #(
 		.i_w_value(scc_value),
 		.i_r_en   (scc_r_en),
 		.i_r_addr (scc_addr),
-		// .i_r_en   (d2_pulse),
-		// .i_r_addr ('0),
 		.o_r_value(pr_data),
 		.o_r_valid(pr_valid)
 		);
-	// #DELME END #FIXME maybe???
 
 	shift_register #(
 		.WIDTH          (4),
@@ -200,7 +181,6 @@ module top_uart_test #(
 		.i_reset(reset),
 		.i_data (p_data),
 		.i_dv   (dv_pulse),
-		.o_state(o_state),
 		.o_cmd  (o_cmd),
 		.o_w_en (scc_w_en),
 		.o_r_en (scc_r_en),
@@ -268,7 +248,7 @@ module top_uart_test #(
 	assign cmux_in[0] = ~8'b10100011;  // reference state, LDLDDDLL on board
 	assign cmux_in[1] = ~8'b11000101;  // reference state, LLDDDLDL on board
 
-	assign cmux_in[2] = ~{scc_r_en, scc_r_en, scc_w_en, scc_w_en, o_state[1:0], o_state[1:0]};
+	assign cmux_in[2] = ~{scc_r_en, scc_r_en, scc_w_en, scc_w_en, 4'b1111};
 	assign cmux_in[3] = ~{dv, p_dv_ser, p_dv, dv_pulse, r_en, r_en, w_en, w_en};
 	assign cmux_in[4] = ~cmd;
 	assign cmux_in[5] = ~scc_addr;
