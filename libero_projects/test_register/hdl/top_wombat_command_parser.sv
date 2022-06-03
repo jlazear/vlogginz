@@ -13,6 +13,7 @@ module top_wombat_command_parser #(
 	input i_reset,
 	input i_rx,
 	output o_tx,
+	output [WORD_WIDTH*REG_WIDTH-1 : 0] o_mem [REG_DEPTH-1 : 0],
 
 	// #DELME debug
 	input [1:0] i_buttons,
@@ -24,7 +25,7 @@ module top_wombat_command_parser #(
 	logic [WORD_WIDTH*REG_WIDTH-1:0] w_data, r_data;
 	logic o_reset;  // #DELME debug
 
-	command_parser_uart #(
+	wombat_command_parser_uart #(
 		.WORD_WIDTH        (WORD_WIDTH),
 		.DIVISOR           (DIVISOR),
 		.SAMPLE_PHASE      (SAMPLE_PHASE),
@@ -60,7 +61,8 @@ module top_wombat_command_parser #(
 		.i_r_en   (r_en   ),
 		.i_r_addr (r_addr ),
 		.o_r_value(r_data ),
-		.o_r_valid(r_valid)
+		.o_r_valid(r_valid),
+		.o_mem(o_mem)
 	);
 
 	// #DELME debug

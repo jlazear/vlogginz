@@ -28,7 +28,9 @@ module register_block
 			for (int i=0; i < DEPTH; i++) begin
 				mem[i] <= '0;
 			end
-			mem[0] <= 'hb00;
+		// write circuit
+		end else if (i_w_en) begin
+			mem[i_w_addr] <= i_w_value;
 		end else
 			mem <= mem;
 
@@ -42,15 +44,6 @@ module register_block
 			r_valid <= '1;
 		end else
 			read_value <= read_value;
-	end
-
-	// write circuit
-	always @(posedge clk) begin
-		if (!reset && i_w_en) begin
-			mem[i_w_addr] <= i_w_value;
-			if (i_w_addr == 0) 
-				mem[i_w_addr] <= 'hb00;
-		end
 	end
 
 	assign o_r_value = read_value;

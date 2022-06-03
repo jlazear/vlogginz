@@ -25,7 +25,7 @@ module top_wombat_command_parser #(
 	logic [WORD_WIDTH*REG_WIDTH-1:0] w_data, r_data;
 	logic o_reset;  // #DELME debug
 
-	command_parser_uart #(
+	wombat_command_parser_uart #(
 		.WORD_WIDTH        (WORD_WIDTH),
 		.DIVISOR           (DIVISOR),
 		.SAMPLE_PHASE      (SAMPLE_PHASE),
