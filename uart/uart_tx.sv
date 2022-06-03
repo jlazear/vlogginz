@@ -1,6 +1,8 @@
 `ifndef UART_TX
 	`define UART_TX 1
 
+`include "../counter/counter.sv"
+
 module uart_tx 
 	#(
 		WIDTH=8,

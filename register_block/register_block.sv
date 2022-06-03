@@ -1,3 +1,6 @@
+`ifndef REGISTER_BLOCK
+	`define REGISTER_BLOCK 1
+
 module register_block 
 	#(
 		parameter WIDTH=16,
@@ -12,7 +15,8 @@ module register_block
 	input i_r_en,
 	input [$clog2(DEPTH)-1 : 0] i_r_addr,
 	output [WIDTH-1 : 0] o_r_value,
-	output o_r_valid
+	output o_r_valid,
+	output [WIDTH-1 : 0] o_mem [DEPTH-1 : 0]
 );
 
 	logic [WIDTH-1 : 0] mem [DEPTH-1 : 0];
@@ -51,5 +55,8 @@ module register_block
 
 	assign o_r_value = read_value;
 	assign o_r_valid = r_valid;
+	assign o_mem = mem;
 
 endmodule
+
+`endif

@@ -1,6 +1,3 @@
-`ifndef COUNTER
-	`define COUNTER 1
-
 module counter 
 	#(parameter WIDTH=8,
 		parameter RESET_VALUE=0,
@@ -33,5 +30,3 @@ module counter
 	assign rollover = _rollover;
 
 endmodule
-
-`endif

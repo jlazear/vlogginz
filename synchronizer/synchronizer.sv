@@ -1,3 +1,6 @@
+`ifndef SYNCHRONIZER
+	`define SYNCHRONIZER 1
+
 module synchronizer 
 	#(N=2,
 		SYNC_HIGH=0)
@@ -20,3 +23,5 @@ module synchronizer
 	assign out = sr[N-1];
 
 endmodule
+
+`endif

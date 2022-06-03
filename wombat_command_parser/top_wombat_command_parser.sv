@@ -1,7 +1,7 @@
-module top_command_parser #(
+module top_wombat_command_parser #(
 	parameter WORD_WIDTH = 8,
-	parameter DIVISOR = 100,
-	parameter SAMPLE_PHASE = 49,
+	parameter DIVISOR = 434,  // suitable for 50 MHz clk and 115200 baud
+	parameter SAMPLE_PHASE = 217,
 	parameter FIFO_DEPTH = 128,
 	parameter FIFO_LEVEL = 16,
 	parameter REG_DEPTH = 16,
@@ -13,8 +13,9 @@ module top_command_parser #(
 	input i_reset,
 	input i_rx,
 	output o_tx,
+	output [WORD_WIDTH*REG_WIDTH-1 : 0] o_mem [REG_DEPTH-1 : 0],
 
-	// debug
+	// #DELME debug
 	input [1:0] i_buttons,
 	output [7:0] o_cmux_out
 );
@@ -22,6 +23,7 @@ module top_command_parser #(
 	logic w_en, r_en, r_valid;
 	logic [WORD_WIDTH-1:0] w_addr, r_addr;
 	logic [WORD_WIDTH*REG_WIDTH-1:0] w_data, r_data;
+	logic o_reset;  // #DELME debug
 
 	command_parser_uart #(
 		.WORD_WIDTH        (WORD_WIDTH),
@@ -48,7 +50,7 @@ module top_command_parser #(
 		);
 
 	register_block #(
-		.WIDTH(REG_WIDTH),
+		.WIDTH(REG_WIDTH*WORD_WIDTH),
 		.DEPTH(REG_DEPTH)
 	) u_register_block (
 		.clk      (clk    ),
@@ -59,14 +61,14 @@ module top_command_parser #(
 		.i_r_en   (r_en   ),
 		.i_r_addr (r_addr ),
 		.o_r_value(r_data ),
-		.o_r_valid(r_valid)
+		.o_r_valid(r_valid),
+		.o_mem(o_mem)
 	);
 
-	// debug
-	localparam CMUX_N_STATES = 8;
+	// #DELME debug
+	localparam CMUX_N_STATES = 13;
 	logic [WORD_WIDTH-1:0] i_cmux_in [CMUX_N_STATES-1:0];
 	logic [1:0] o_buttons;
-	logic o_reset;
 	debug #(
 		.WIDTH             (WORD_WIDTH),
 		.CMUX_N_STATES     (CMUX_N_STATES),
@@ -82,6 +84,8 @@ module top_command_parser #(
 		.o_reset   (o_reset)
 		);
 
+	// #DELME debug
+	// driving active-low LEDs
 	assign i_cmux_in[0] = ~8'b10100011;  // reference state, LDLDDDLL on board
 	assign i_cmux_in[1] = ~8'b11000101;  // reference state, LLDDDLDL on board
 	assign i_cmux_in[2] = ~{w_en, w_en, r_en, r_en, r_valid, r_valid, r_valid, r_valid};
@@ -90,5 +94,10 @@ module top_command_parser #(
 	assign i_cmux_in[5] = ~w_data[2 * WORD_WIDTH +: WORD_WIDTH];
 	assign i_cmux_in[6] = ~w_data[1 * WORD_WIDTH +: WORD_WIDTH];
 	assign i_cmux_in[7] = ~w_data[0 * WORD_WIDTH +: WORD_WIDTH];
+	assign i_cmux_in[8] = ~r_addr;
+	assign i_cmux_in[9] = ~r_data[3 * WORD_WIDTH +: WORD_WIDTH];
+	assign i_cmux_in[10] = ~r_data[2 * WORD_WIDTH +: WORD_WIDTH];
+	assign i_cmux_in[11] = ~r_data[1 * WORD_WIDTH +: WORD_WIDTH];
+	assign i_cmux_in[12] = ~r_data[0 * WORD_WIDTH +: WORD_WIDTH];
 
 endmodule

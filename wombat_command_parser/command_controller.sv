@@ -5,10 +5,10 @@
 	Each of C and A are one word wide. V will be `VALUE_WORDS` words (default 4) wide. 
 
 	command table:
-		0xa0 = read
-		0x0a = write
+		0x72 = 'r' = read
+		0x77 = 'w' = write
 */
-module simple_command_controller #(
+module command_controller #(
 	parameter WORD_WIDTH = 8,
 	parameter VALUE_WORDS = 4
 	) (
@@ -18,7 +18,6 @@ module simple_command_controller #(
 	input i_dv,
 	output o_w_en,
 	output o_r_en,
-	output [WORD_WIDTH-1:0] o_cmd,
 	output [WORD_WIDTH-1:0] o_addr,
 	output [WORD_WIDTH*VALUE_WORDS-1 : 0] o_value
 );
@@ -26,7 +25,7 @@ module simple_command_controller #(
 	logic [WORD_WIDTH-1 : 0] cmd, addr;
 	logic [VALUE_WORDS*WORD_WIDTH - 1 : 0] w_data;
 
-	localparam [WORD_WIDTH-1 : 0] CMD_WRITE = 8'h0a, CMD_READ = 8'ha0;
+	localparam [WORD_WIDTH-1 : 0] CMD_WRITE = 8'h77, CMD_READ = 8'h72;
 
 	assign cmd = i_data[(VALUE_WORDS+1)*WORD_WIDTH +: WORD_WIDTH];
 	assign addr = i_data[VALUE_WORDS*WORD_WIDTH +: WORD_WIDTH];
@@ -45,7 +44,7 @@ module simple_command_controller #(
 		else if (cmd == CMD_READ) cmd_state = READ;
 		else cmd_state = IDLE;
 	end
-	
+
 	always_comb
 		unique case (state)
 			IDLE: next_state = (dv_edge == RISING) ? cmd_state : IDLE;
@@ -73,7 +72,6 @@ module simple_command_controller #(
 		 end
 	end
 
-	assign o_cmd = cmd;
 	assign o_r_en = r_en;
 	assign o_w_en = w_en;
 	assign o_addr = addr;

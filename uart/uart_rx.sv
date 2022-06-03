@@ -1,6 +1,9 @@
 `ifndef UART_RX
 	`define UART_RX 1
 
+`include "../synchronizer/synchronizer.sv"
+`include "../counter/counter.sv"
+
 module uart_rx
 	#(
 		WIDTH=8,

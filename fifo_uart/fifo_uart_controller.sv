@@ -1,3 +1,6 @@
+`ifndef FIFO_UART_CONTROLLER
+	`define FIFO_UART_CONTROLLER 1
+
 module fifo_uart_controller #(
 	parameter WIDTH = 8
 	) (
@@ -59,3 +62,5 @@ module fifo_uart_controller #(
 	assign o_data = mem;
 
 endmodule
+
+`endif

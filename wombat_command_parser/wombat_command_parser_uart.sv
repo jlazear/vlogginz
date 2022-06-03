@@ -1,4 +1,14 @@
-module command_parser_uart #(
+`ifndef WOMBAT_CP
+	`define WOMBAT_CP 1
+
+`include "../uart/uart_rx.sv"
+`include "../pulse/pulse.sv"
+`include "../serializer/serializer.sv"
+`include "../serializer/deserializer.sv"
+`include "../fifo_uart/fifo_uart.sv"
+`include "../register_block/register_block.sv"
+
+module wombat_command_parser_uart #(
 	parameter WORD_WIDTH = 8,
 	parameter DIVISOR = 100,
 	parameter SAMPLE_PHASE = 49,
@@ -28,19 +38,10 @@ module command_parser_uart #(
 	input i_r_valid
 );
 
-	// #DELME CHECKME
 	logic [WORD_WIDTH*(REG_WIDTH + 2) - 1 : 0] p_data;
 	logic [WORD_WIDTH*REG_WIDTH-1 : 0] scc_value, pr_data;
 	logic [WORD_WIDTH-1 : 0] data, scc_addr, r_data;
 	logic dv, p_dv_ser, p_dv, dv_pulse, scc_w_en, scc_r_en, pr_valid, r_valid;
-	// logic [WORD_WIDTH-1:0] data, r_data, w_addr, r_addr, cmd;
-	// logic dv, dv_pulse, p_dv, pr_dv, p_dv_ser, w_en, r_en;
-	// logic [3:0] delayed;
-	// logic r_valid, d2_pulse, d3_pulse, tx_en;
-	// logic [7:0] debug;
-	// logic [1:0] button;
-	// logic reset;
-	// #DELME END CHECKME
 
 	uart_rx #(
 		.WIDTH       (WORD_WIDTH),
@@ -84,12 +85,12 @@ module command_parser_uart #(
 		.o_x    (dv_pulse)
 		);
 
-	simple_command_controller #(
+	command_controller #(
 		.WORD_WIDTH (WORD_WIDTH),
 		.VALUE_WORDS(REG_WIDTH )
-	) u_scmd_controller (
+	) u_cmd_controller (
 		.clk    (clk      ),
-		.i_reset(reset    ),
+		.i_reset(i_reset  ),
 		.i_data (p_data   ),
 		.i_dv   (dv_pulse ),
 		.o_w_en (scc_w_en ),
@@ -106,6 +107,7 @@ module command_parser_uart #(
 	assign pr_data = i_r_value;
 	assign pr_valid = i_r_valid;
 
+	// --- expected connections as follows ---
 	// register_block #(
 	// 	.WIDTH(REG_WIDTH*WORD_WIDTH),
 	// 	.DEPTH(REG_DEPTH)
@@ -155,3 +157,5 @@ module command_parser_uart #(
 		);
 
 endmodule
+
+`endif

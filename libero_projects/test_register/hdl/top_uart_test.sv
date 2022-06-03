@@ -166,7 +166,7 @@ module top_uart_test #(
 		.i_reset(reset),
 		.i_data (p_data),
 		.i_dv   (dv_pulse),
-		.o_cmd  (o_cmd),
+		// .o_cmd  (o_cmd),
 		.o_w_en (scc_w_en),
 		.o_r_en (scc_r_en),
 		.o_addr (scc_addr),
