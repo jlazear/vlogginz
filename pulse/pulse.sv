@@ -1,3 +1,6 @@
+`ifndef PULSE
+	`define PULSE 1
+
 module pulse #(
 	WIDTH = 1
 	) (
@@ -39,3 +42,5 @@ module pulse #(
 	assign o_x = (state == PULSE && cnt < WIDTH);
 
 endmodule
+
+`endif

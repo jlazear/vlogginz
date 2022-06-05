@@ -9,6 +9,7 @@
 !*.vhd
 !*.py
 !*.do
+!*.pdf
 
 # libero SoC files
 !*.sdc
@@ -29,3 +30,4 @@
 
 !README*
 !CHANGELOG*
+!LICENSE*

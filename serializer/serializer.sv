@@ -1,3 +1,6 @@
+`ifndef SERIALIZER
+	`define SERIALIZER 1
+
 module serializer #( 
 	parameter WIDTH = 8,
 	parameter NUM_WORDS = 4,
@@ -36,3 +39,5 @@ module serializer #(
 	assign o_dv = (cnt > '0);
 
 endmodule
+
+`endif

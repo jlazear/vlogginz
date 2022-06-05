@@ -1,3 +1,6 @@
+`ifndef DEBOUNCER
+	`define DEBOUNCER 1
+
 module debouncer #(
 	DEADZONE_WIDTH = 1024
 	)(
@@ -36,3 +39,5 @@ module debouncer #(
 	assign o_out = (state == S_HIGH || state == S_RISING);
 
 endmodule
+
+`endif

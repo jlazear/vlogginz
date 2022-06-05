@@ -1,3 +1,6 @@
+`ifndef CLICK_MUX
+	`define CLICK_MUX 1
+
 module click_mux #(
 	parameter WIDTH = 8,
 	parameter N_STATES = 4
@@ -29,3 +32,5 @@ module click_mux #(
 	assign o_x = i_x[cnt];
 
 endmodule
+
+`endif

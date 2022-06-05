@@ -1,3 +1,6 @@
+`ifndef DESERIALIZER
+	`define DESERIALIZER 1
+
 module deserializer #(
 	parameter WIDTH = 8,
 	parameter NUM_WORDS = 4,
@@ -33,3 +36,5 @@ module deserializer #(
 	assign o_dv = dv;
 
 endmodule
+
+`endif
