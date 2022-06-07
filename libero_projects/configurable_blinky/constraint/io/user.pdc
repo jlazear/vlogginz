@@ -25,13 +25,13 @@
 # User Locked I/O settings
 # 
 
-set_io {i_buttons[0]}  \
+set_io {buttons[0]}  \
     -pinname 143      \
     -fixed yes        \
     -DIRECTION INPUT
 
 
-set_io {i_buttons[1]}  \
+set_io {buttons[1]}  \
     -pinname 144      \
     -fixed yes        \
     -DIRECTION INPUT

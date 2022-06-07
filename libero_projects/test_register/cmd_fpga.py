@@ -13,29 +13,30 @@ read_cmd = ord('r')
 
 
 # expects 1 byte address and 4 byte value, sends LSB first
-def write(addr, value, ser=None, verbose=True, nbytes_value=4):
+def write(addr, value, ser=None, verbose=True, nbytes_value=4, pad=b'\x00'):
     send(cmd=write_cmd, addr=addr, value=value, ser=ser, verbose=verbose,
-         nbytes_value=nbytes_value)
+         nbytes_value=nbytes_value, pad=pad)
 
-def read(addr, ser=None, verbose=True, nbytes_value=4, *args, **kwargs):
+def read(addr, ser=None, verbose=True, nbytes_value=4, pad=b'\x00', *args, **kwargs):
     return send(cmd=read_cmd, addr=addr, value=0, read_response=True, ser=ser, verbose=verbose,
-                nbytes_value=nbytes_value)
+                nbytes_value=nbytes_value, pad=pad)
 
-def send(cmd, addr, value=0, read_response=False, ser=None, verbose=True, nbytes_value=4):
+def send(cmd, addr, value=0, read_response=False, ser=None, verbose=True,
+         nbytes_value=4, pad=b'\x00', virtual=False):
     if isinstance(value, str):
         vals = value.encode()
     elif isinstance(value, int):
-        vals = [(value >> i) & 0xff for i in range(nbytes_value)]
-        # val3 = value & 0xff
-        # val2 = (value >> 8) & 0xff
-        # val1 = (value >> 16) & 0xff
-        # val0 = (value >> 24) & 0xff
+        vals = [(value >> 8*i) & 0xff for i in range(nbytes_value)][::-1]
     elif isinstance(value, bytes):
         vals = value
-    # b = bytearray([cmd, addr, val0, val1, val2, val3])
     base = [cmd, addr]
     base.extend(vals)
     b = bytearray(base)
+    
+    if len(b) < nbytes_value + 2:
+        b += pad*(nbytes_value + 2 - len(b))
+    elif len(b) > nbytes_value + 2:
+        b = b[:nbytes_value + 2]
 
     if ser is None:
         ser = serial.Serial(port, baudrate, timeout=timeout)
@@ -44,7 +45,8 @@ def send(cmd, addr, value=0, read_response=False, ser=None, verbose=True, nbytes
         close = False
 
     if verbose: print("b = {} (len = {})".format(b, len(b)))
-    ser.write(b)
+    if not virtual:
+        ser.write(b)
     if read_response:
         toret = ser.read(nbytes_value)
         if verbose: print("response = {}".format(toret))
@@ -56,10 +58,27 @@ def fill_ascending(base='boo', depth=16, verbose=False, nbytes_value=4):
     for i in range(depth):
         write(i, (base + "{:x}".format(i))[:nbytes_value], verbose=verbose, nbytes_value=nbytes_value)
 
+def fill_all(value='boo', depth=16, verbose=False, nbytes_value=4):
+    for i in range(depth):
+        write(i, value[:nbytes_value], verbose=verbose, nbytes_value=nbytes_value)
+
+
 def read_all(depth=16, verbose=False, nbytes_value=4):
     for i in range(depth):
         s = "addr 0x{0:02x} = {1}"
         print(s.format(i, read(i, verbose=verbose, nbytes_value=nbytes_value)))
+
+# configurable_blinky commands
+def enable_blinky(enable=True):
+    if enable:
+        write(0x00, b'\x00\x00\x00\x00')
+    else:
+        write(0x00, b'\x00\x00\x00\x01')
+
+
+def set_mux(mode):
+    write(0x01, 3*b'\x00' + byte(mode))
+
 
 cmd_dict = {'w': write,
             'write': write,

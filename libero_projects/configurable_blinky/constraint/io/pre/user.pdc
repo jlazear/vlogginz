@@ -6,7 +6,7 @@
 
 # Family: SmartFusion2 , Die: M2S010 , Package: 144 TQ
 
-# Date generated: Wed Jun  1 19:59:42 2022 
+# Date generated: Sun Jun  5 16:40:08 2022 
 
 
 # 
@@ -24,18 +24,6 @@
 # 
 # User Locked I/O settings
 # 
-
-set_io {i_buttons[0]}  \
-    -pinname 143      \
-    -fixed yes        \
-    -DIRECTION INPUT
-
-
-set_io {i_buttons[1]}  \
-    -pinname 144      \
-    -fixed yes        \
-    -DIRECTION INPUT
-
 
 set_io i_rx           \
     -pinname 1        \

@@ -16,7 +16,9 @@ KEY VendorTechnology_DieVoltage "1.2"
 KEY VendorTechnology_PART_RANGE "COM"
 KEY VendorTechnology_DSW_VCCA_VOLTAGE_RAMP_RATE "100_MS"
 KEY VendorTechnology_IO_DEFT_STD "LVCMOS25"
+KEY VendorTechnology_OPCONR ""
 KEY VendorTechnology_PLL_SUPPLY "PLL_SUPPLY_25"
+KEY VendorTechnology_RAD_EXPOSURE ""
 KEY VendorTechnology_RESERVEMIGRATIONPINS "1"
 KEY VendorTechnology_RESTRICTPROBEPINS "1"
 KEY VendorTechnology_RESTRICTSPIPINS "0"
@@ -42,29 +44,23 @@ KEY LossOfDataDRCSeverity "TRUE"
 KEY IdWidthMismatchDRCSeverity "TRUE"
 KEY SimulationType "VERILOG"
 KEY Vendor "Actel"
-KEY ActiveRoot "test_register::work"
 LIST REVISIONS
 VALUE="Impl1",NUM=1
-CURREV=1
+VALUE="Impl2",NUM=2
+CURREV=2
 ENDLIST
 LIST GlobalIncludeFileList
 ENDLIST
 LIST FileManager
-VALUE "<project>\component\Actel\DirectCore\COREUART\5.7.100\COREUART.cxf,actgen_cxf"
-STATE="utd"
-TIME="1653989692"
-SIZE="573"
-PARENT="<project>\component\work\COREUART_C0\COREUART_C0.cxf"
-ENDFILE
 VALUE "<project>\component\Actel\SgCore\OSC\2.0.101\OSC.cxf,actgen_cxf"
 STATE="utd"
-TIME="1653984209"
+TIME="1654454801"
 SIZE="684"
 PARENT="<project>\component\work\OSC_C0\OSC_C0.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SgCore\OSC\2.0.101\osc_comps.v,hdl"
 STATE="utd"
-TIME="1652947903"
+TIME="1654454801"
 SIZE="924"
 PARENT="<project>\component\Actel\SgCore\OSC\2.0.101\OSC.cxf"
 BEGIN_USE_CONSTRAINT
@@ -76,7 +72,7 @@ IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\Actel\SgCore\OSC\2.0.101\osc_comps_pre.v,hdl"
 STATE="utd"
-TIME="1652947903"
+TIME="1654454801"
 SIZE="726"
 PARENT="<project>\component\Actel\SgCore\OSC\2.0.101\OSC.cxf"
 BEGIN_USE_CONSTRAINT
@@ -86,361 +82,236 @@ END_USE_CONSTRAINT
 USE_FOR_ANY_TOOL="FALSE"
 IS_READONLY="TRUE"
 ENDFILE
-VALUE "<project>\component\work\COREUART_C0\COREUART_C0.cxf,actgen_cxf"
-STATE="utd"
-TIME="1653989692"
-SIZE="4796"
-ENDFILE
-VALUE "<project>\component\work\COREUART_C0\COREUART_C0.v,hdl"
-STATE="utd"
-TIME="1653989692"
-SIZE="5358"
-PARENT="<project>\component\work\COREUART_C0\COREUART_C0.cxf"
-IS_READONLY="TRUE"
-ENDFILE
-VALUE "<project>\component\work\COREUART_C0\COREUART_C0_0\coreparameters.v,tb_hdl"
-STATE="utd"
-TIME="1653989692"
-SIZE="466"
-PARENT="<project>\component\work\COREUART_C0\COREUART_C0_0\COREUART_C0_COREUART_C0_0_COREUART.cxf"
-IS_READONLY="TRUE"
-IS_INCLUDED="TRUE"
-ENDFILE
-VALUE "<project>\component\work\COREUART_C0\COREUART_C0_0\COREUART_C0_COREUART_C0_0_COREUART.cxf,actgen_cxf"
-STATE="utd"
-TIME="1653989692"
-SIZE="1888"
-PARENT="<project>\component\work\COREUART_C0\COREUART_C0.cxf"
-ENDFILE
-VALUE "<project>\component\work\COREUART_C0\COREUART_C0_0\mti\scripts\wave_vlog.do,do"
-STATE="utd"
-TIME="1653989692"
-SIZE="1458"
-PARENT="<project>\component\work\COREUART_C0\COREUART_C0_0\COREUART_C0_COREUART_C0_0_COREUART.cxf"
-IS_READONLY="TRUE"
-ENDFILE
-VALUE "<project>\component\work\COREUART_C0\COREUART_C0_0\rtl\vlog\core\Clock_gen.v,hdl"
-STATE="utd"
-TIME="1653989692"
-SIZE="13254"
-PARENT="<project>\component\work\COREUART_C0\COREUART_C0_0\COREUART_C0_COREUART_C0_0_COREUART.cxf"
-IS_READONLY="TRUE"
-ENDFILE
-VALUE "<project>\component\work\COREUART_C0\COREUART_C0_0\rtl\vlog\core\CoreUART.v,hdl"
-STATE="utd"
-TIME="1653989692"
-SIZE="14296"
-PARENT="<project>\component\work\COREUART_C0\COREUART_C0_0\COREUART_C0_COREUART_C0_0_COREUART.cxf"
-IS_READONLY="TRUE"
-ENDFILE
-VALUE "<project>\component\work\COREUART_C0\COREUART_C0_0\rtl\vlog\core\fifo_256x8.v,hdl"
-STATE="utd"
-TIME="1653989692"
-SIZE="7760"
-PARENT="<project>\component\work\COREUART_C0\COREUART_C0_0\COREUART_C0_COREUART_C0_0_COREUART.cxf"
-IS_READONLY="TRUE"
-ENDFILE
-VALUE "<project>\component\work\COREUART_C0\COREUART_C0_0\rtl\vlog\core\Rx_async.v,hdl"
-STATE="utd"
-TIME="1653989692"
-SIZE="21163"
-PARENT="<project>\component\work\COREUART_C0\COREUART_C0_0\COREUART_C0_COREUART_C0_0_COREUART.cxf"
-IS_READONLY="TRUE"
-ENDFILE
-VALUE "<project>\component\work\COREUART_C0\COREUART_C0_0\rtl\vlog\core\Tx_async.v,hdl"
-STATE="utd"
-TIME="1653989692"
-SIZE="8864"
-PARENT="<project>\component\work\COREUART_C0\COREUART_C0_0\COREUART_C0_COREUART_C0_0_COREUART.cxf"
-IS_READONLY="TRUE"
-ENDFILE
-VALUE "<project>\component\work\COREUART_C0\COREUART_C0_0\rtl\vlog\test\user\testbnch.v,tb_hdl"
-STATE="utd"
-TIME="1653989692"
-SIZE="39126"
-PARENT="<project>\component\work\COREUART_C0\COREUART_C0_0\COREUART_C0_COREUART_C0_0_COREUART.cxf"
-MODULE_UNDER_TEST="testbnch"
-SIMULATION_TIME="-all"
-IS_READONLY="TRUE"
-ENDFILE
 VALUE "<project>\component\work\OSC_C0\OSC_C0.cxf,actgen_cxf"
 STATE="utd"
-TIME="1653984209"
-SIZE="2510"
+TIME="1654454802"
+SIZE="2518"
 ENDFILE
 VALUE "<project>\component\work\OSC_C0\OSC_C0.v,hdl"
 STATE="utd"
-TIME="1653984209"
-SIZE="2900"
+TIME="1654454801"
+SIZE="2908"
 PARENT="<project>\component\work\OSC_C0\OSC_C0.cxf"
 IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\OSC_C0\OSC_C0_0\OSC_C0_OSC_C0_0_OSC.cxf,actgen_cxf"
 STATE="utd"
-TIME="1653984209"
+TIME="1654454801"
 SIZE="461"
 PARENT="<project>\component\work\OSC_C0\OSC_C0.cxf"
 ENDFILE
 VALUE "<project>\component\work\OSC_C0\OSC_C0_0\OSC_C0_OSC_C0_0_OSC.v,hdl"
 STATE="utd"
-TIME="1653984209"
+TIME="1654454801"
 SIZE="826"
 PARENT="<project>\component\work\OSC_C0\OSC_C0_0\OSC_C0_OSC_C0_0_OSC.cxf"
 IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\test_register\test_register.cxf,actgen_cxf"
 STATE="utd"
-TIME="1654262073"
-SIZE="2097"
-ENDFILE
-VALUE "<project>\component\work\test_register\test_register.v,hdl"
-STATE="utd"
-TIME="1654262072"
-SIZE="2516"
-PARENT="<project>\component\work\test_register\test_register.cxf"
-IS_READONLY="TRUE"
+TIME="1654541545"
+SIZE="2195"
 ENDFILE
 VALUE "<project>\constraint\io\user.pdc,io_pdc"
 STATE="utd"
-TIME="1654138782"
-SIZE="1964"
+TIME="1654455026"
+SIZE="1966"
 IS_TARGET="TRUE"
 ENDFILE
 VALUE "<project>\constraint\test_register.sdc,sdc"
 STATE="utd"
-TIME="1654148012"
+TIME="1654322672"
 SIZE="0"
 ENDFILE
 VALUE "<project>\constraint\user.sdc,sdc"
 STATE="utd"
-TIME="1654148505"
+TIME="1654322672"
 SIZE="120"
 IS_TARGET="TRUE"
 ENDFILE
 VALUE "<project>\hdl\click_mux.sv,hdl"
 STATE="utd"
-TIME="1654137713"
+TIME="1654322672"
 SIZE="621"
 ENDFILE
 VALUE "<project>\hdl\command_controller.sv,hdl"
 STATE="utd"
-TIME="1654256016"
+TIME="1654322672"
 SIZE="2109"
-ENDFILE
-VALUE "<project>\hdl\command_parser.sv,hdl"
-STATE="utd"
-TIME="1653556687"
-SIZE="0"
-ENDFILE
-VALUE "<project>\hdl\command_parser_uart.sv,hdl"
-STATE="utd"
-TIME="1654256808"
-SIZE="3400"
 ENDFILE
 VALUE "<project>\hdl\counter.sv,hdl"
 STATE="utd"
-TIME="1652692120"
+TIME="1654322672"
 SIZE="779"
 ENDFILE
 VALUE "<project>\hdl\debouncer.sv,hdl"
 STATE="utd"
-TIME="1654042646"
+TIME="1654322672"
 SIZE="873"
 ENDFILE
 VALUE "<project>\hdl\debug.sv,hdl"
 STATE="utd"
-TIME="1654252424"
+TIME="1654322672"
 SIZE="1529"
 ENDFILE
 VALUE "<project>\hdl\deserializer.sv,hdl"
 STATE="utd"
-TIME="1654117131"
+TIME="1654322672"
 SIZE="830"
 ENDFILE
 VALUE "<project>\hdl\fifo.sv,hdl"
 STATE="utd"
-TIME="1654036905"
+TIME="1654322672"
 SIZE="1884"
 ENDFILE
 VALUE "<project>\hdl\fifo_uart.sv,hdl"
 STATE="utd"
-TIME="1654033326"
+TIME="1654322672"
 SIZE="1487"
 ENDFILE
 VALUE "<project>\hdl\fifo_uart_controller.sv,hdl"
 STATE="utd"
-TIME="1653592603"
+TIME="1654322672"
 SIZE="1366"
 ENDFILE
 VALUE "<project>\hdl\pulse.sv,hdl"
 STATE="utd"
-TIME="1653555989"
+TIME="1654322672"
 SIZE="772"
 ENDFILE
 VALUE "<project>\hdl\register_block.sv,hdl"
 STATE="utd"
-TIME="1654262059"
+TIME="1654322672"
 SIZE="1125"
 ENDFILE
 VALUE "<project>\hdl\serializer.sv,hdl"
 STATE="utd"
-TIME="1653601285"
+TIME="1654322672"
 SIZE="929"
 ENDFILE
 VALUE "<project>\hdl\shift_register.sv,hdl"
 STATE="utd"
-TIME="1654034697"
+TIME="1654322672"
 SIZE="484"
-ENDFILE
-VALUE "<project>\hdl\simple_command_controller.sv,hdl"
-STATE="utd"
-TIME="1654255343"
-SIZE="2131"
 ENDFILE
 VALUE "<project>\hdl\synchronizer.sv,hdl"
 STATE="utd"
-TIME="1652726502"
+TIME="1654322672"
 SIZE="292"
 ENDFILE
 VALUE "<project>\hdl\tb_command_controller.sv,hdl"
 STATE="utd"
-TIME="1654128219"
+TIME="1654322672"
 SIZE="2334"
 ENDFILE
 VALUE "<project>\hdl\tb_command_parser_uart.sv,hdl"
 STATE="utd"
-TIME="1653603759"
+TIME="1654322672"
 SIZE="4127"
 ENDFILE
 VALUE "<project>\hdl\tb_serializer.sv,hdl"
 STATE="utd"
-TIME="1653601355"
+TIME="1654322672"
 SIZE="1066"
 ENDFILE
 VALUE "<project>\hdl\tb_top_command_parser.sv,hdl"
 STATE="utd"
-TIME="1653987407"
+TIME="1654322672"
 SIZE="2493"
 ENDFILE
 VALUE "<project>\hdl\tb_top_uart_loopback.sv,hdl"
 STATE="utd"
-TIME="1653617368"
+TIME="1654322672"
 SIZE="1386"
 ENDFILE
 VALUE "<project>\hdl\tb_top_uart_test.sv,hdl"
 STATE="utd"
-TIME="1654150870"
+TIME="1654322672"
 SIZE="2778"
-ENDFILE
-VALUE "<project>\hdl\tb_uart_tx.sv,hdl"
-STATE="utd"
-TIME="1653021964"
-SIZE="1740"
-ENDFILE
-VALUE "<project>\hdl\top_command_parser.sv,hdl"
-STATE="utd"
-TIME="1654255829"
-SIZE="2939"
 ENDFILE
 VALUE "<project>\hdl\top_uart_loopback.sv,hdl"
 STATE="utd"
-TIME="1653984293"
+TIME="1654322672"
 SIZE="1107"
 ENDFILE
 VALUE "<project>\hdl\top_uart_test.sv,hdl"
 STATE="utd"
-TIME="1654254241"
+TIME="1654322672"
 SIZE="7289"
 ENDFILE
 VALUE "<project>\hdl\top_wombat_command_parser.sv,hdl"
 STATE="utd"
-TIME="1654261730"
-SIZE="3076"
+TIME="1654541920"
+SIZE="3112"
 ENDFILE
 VALUE "<project>\hdl\uart_rx.sv,hdl"
 STATE="utd"
-TIME="1654211486"
+TIME="1654322672"
 SIZE="3084"
 ENDFILE
 VALUE "<project>\hdl\uart_tx.sv,hdl"
 STATE="utd"
-TIME="1654211509"
+TIME="1654322672"
 SIZE="2033"
-ENDFILE
-VALUE "<project>\hdl\wombat_command_parser.sv,hdl"
-STATE="utd"
-TIME="1654256791"
-SIZE="2988"
 ENDFILE
 VALUE "<project>\hdl\wombat_command_parser_uart.sv,hdl"
 STATE="utd"
-TIME="1654256808"
+TIME="1654322672"
 SIZE="3400"
 ENDFILE
 VALUE "<project>\synthesis\synwork\layer0.so,so"
 STATE="utd"
-TIME="1653605114"
+TIME="1654458123"
 SIZE="159"
 ENDFILE
 VALUE "<project>\synthesis\test_register.so,so"
 STATE="utd"
-TIME="1653605441"
+TIME="1654541581"
 SIZE="270"
 ENDFILE
 VALUE "<project>\synthesis\test_register.vm,syn_vm"
-STATE="utd"
-TIME="1653605440"
-SIZE="67212"
+STATE="ood"
+TIME="1654541580"
+SIZE="286212"
 ENDFILE
 VALUE "<project>\synthesis\test_register_syn.prj,prj"
 STATE="utd"
-TIME="1653605104"
-SIZE="2918"
+TIME="1654541582"
+SIZE="5040"
 ENDFILE
 VALUE "<project>\synthesis\test_register_vm.sdc,syn_sdc"
 STATE="utd"
-TIME="1653605440"
-SIZE="914"
+TIME="1654541580"
+SIZE="918"
+ENDFILE
+VALUE "<project>\synthesis\top_wombat_command_parser.so,so"
+STATE="utd"
+TIME="1654454699"
+SIZE="294"
+ENDFILE
+VALUE "<project>\synthesis\top_wombat_command_parser.vm,syn_vm"
+STATE="ood"
+TIME="1654454698"
+SIZE="393879"
+ENDFILE
+VALUE "<project>\synthesis\top_wombat_command_parser_syn.prj,prj"
+STATE="utd"
+TIME="1654454699"
+SIZE="4548"
+ENDFILE
+VALUE "<project>\synthesis\top_wombat_command_parser_vm.sdc,syn_sdc"
+STATE="utd"
+TIME="1654454698"
+SIZE="999"
 ENDFILE
 ENDLIST
 LIST UsedFile
 ENDLIST
 LIST NewModulesInfo
-LIST "COREUART_C0_COREUART_C0_0_COREUART::work"
-FILE "<project>\component\work\COREUART_C0\COREUART_C0_0\rtl\vlog\core\CoreUART.v,hdl"
-LIST Other_Association
-VALUE "<project>\component\work\COREUART_C0\COREUART_C0_0\coreparameters.v,tb_hdl"
-VALUE "<project>\component\work\COREUART_C0\COREUART_C0_0\rtl\vlog\test\user\testbnch.v,tb_hdl"
-VALUE "<project>\component\work\COREUART_C0\COREUART_C0_0\mti\scripts\wave_vlog.do,do"
-ENDLIST
-ENDLIST
-LIST "test_register::work"
-FILE "<project>\component\work\test_register\test_register.v,hdl"
-LIST PNRConstraints
-VALUE "<project>\constraint\io\user.pdc,io_pdc"
-ENDLIST
-LIST ProjectState5.1
-LIST Impl1
-ideSYNTHESIS(<project>\synthesis\test_register.vm,syn_vm)=StateSuccess
-LIST FlowOptions
-UsePhySynth=FALSE
-UseSynth=TRUE
-UseFhbAutoInst=FALSE
-ENDLIST
-Used_File_List
-ENDUsed_File_List
-ENDLIST
-ENDLIST
-ENDLIST
 ENDLIST
 LIST AssociatedStimulus
 ENDLIST
 LIST Other_Association
-LIST COREUART_C0_COREUART_C0_0_COREUART
-VALUE "<project>\component\work\COREUART_C0\COREUART_C0_0\coreparameters.v,tb_hdl"
-VALUE "<project>\component\work\COREUART_C0\COREUART_C0_0\rtl\vlog\test\user\testbnch.v,tb_hdl"
-VALUE "<project>\component\work\COREUART_C0\COREUART_C0_0\mti\scripts\wave_vlog.do,do"
-ENDLIST
 ENDLIST
 LIST SimulationOptions
 UseAutomaticDoFile=true
@@ -509,16 +380,16 @@ EndProfile
 NAME="Synplify Pro ME"
 FUNCTION="Synthesis"
 TOOL="Synplify Pro ME"
-LOCATION="E:\Microsemi\Libero\SynplifyPro\bin\synplify_pro.exe"
-PARAM="-licensetype synplifypro_actel -batch -log synplify.log"
-BATCH=1
+LOCATION="C:\Microsemi\Libero_SoC_v2022.1\SynplifyPro\bin\synplify_pro.exe"
+PARAM=""
+BATCH=0
 LICENSE=""
 IS32BIT="1"
 EndProfile
 NAME="ModelSim ME Pro"
 FUNCTION="Simulation"
 TOOL="ModelSim Pro Edition"
-LOCATION="E:\Microsemi\Libero\ModelSimPro\win32acoem\modelsim.exe"
+LOCATION="C:\Microsemi\Libero_SoC_v2022.1\ModelSimPro\win32acoem\modelsim.exe"
 PARAM=""
 BATCH=0
 LICENSE=""
@@ -527,7 +398,7 @@ EndProfile
 NAME="Identify Debugger"
 FUNCTION="IdentifyDebugger"
 TOOL="Identify Debugger"
-LOCATION="E:\Microsemi\Libero\Identify\bin\identify_debugger.exe"
+LOCATION="C:\Microsemi\Libero_SoC_v2022.1\Identify\bin\identify_debugger.exe"
 PARAM=""
 BATCH=0
 LICENSE=""
@@ -535,18 +406,6 @@ IS32BIT="1"
 EndProfile
 ENDLIST
 LIST ProjectState5.1
-LIST "test_register::work"
-LIST Impl1
-ideSYNTHESIS(<project>\synthesis\test_register.vm,syn_vm)=StateSuccess
-LIST FlowOptions
-UsePhySynth=FALSE
-UseSynth=TRUE
-UseFhbAutoInst=FALSE
-ENDLIST
-Used_File_List
-ENDUsed_File_List
-ENDLIST
-ENDLIST
 ENDLIST
 LIST ExcludePackageForSimulation
 ENDLIST
@@ -560,47 +419,19 @@ LIST UserCustomizedFileList
 ENDLIST
 LIST OpenedFileList
 ORIENTATION;HORIZONTAL
-Reports;Reports;0
-ReportsCurrentItem;Generate Bitstream:test_register_generateBitstream.log
-Timing Report Explorer;Timing Report Explorer;0
 StartPage;StartPage;0
-Constraint Manager;Constraint Manager;0
-SmartDesign;test_register;0
-ACTIVEVIEW;Reports
+ACTIVEVIEW;StartPage
 ENDLIST
 LIST ModuleSubBlockList
 LIST "command_controller::work","hdl\command_controller.sv","FALSE","FALSE"
 ENDLIST
 LIST "command_parser_uart::work","","FALSE","FALSE"
 ENDLIST
-LIST "COREUART_C0::work","component\work\COREUART_C0\COREUART_C0.v","TRUE","FALSE"
-SUBBLOCK "COREUART_C0_COREUART_C0_0_COREUART::work","component\work\COREUART_C0\COREUART_C0_0\rtl\vlog\core\CoreUART.v","FALSE","FALSE"
-ENDLIST
-LIST "COREUART_C0_COREUART_C0_0_Clock_gen::work","component\work\COREUART_C0\COREUART_C0_0\rtl\vlog\core\Clock_gen.v","FALSE","FALSE"
-ENDLIST
-LIST "COREUART_C0_COREUART_C0_0_COREUART::work","component\work\COREUART_C0\COREUART_C0_0\rtl\vlog\core\CoreUART.v","FALSE","FALSE"
-SUBBLOCK "COREUART_C0_COREUART_C0_0_Clock_gen::work","component\work\COREUART_C0\COREUART_C0_0\rtl\vlog\core\Clock_gen.v","FALSE","FALSE"
-SUBBLOCK "COREUART_C0_COREUART_C0_0_fifo_256x8::work","component\work\COREUART_C0\COREUART_C0_0\rtl\vlog\core\fifo_256x8.v","FALSE","FALSE"
-SUBBLOCK "COREUART_C0_COREUART_C0_0_Rx_async::work","component\work\COREUART_C0\COREUART_C0_0\rtl\vlog\core\Rx_async.v","FALSE","FALSE"
-SUBBLOCK "COREUART_C0_COREUART_C0_0_Tx_async::work","component\work\COREUART_C0\COREUART_C0_0\rtl\vlog\core\Tx_async.v","FALSE","FALSE"
-ENDLIST
-LIST "COREUART_C0_COREUART_C0_0_fifo_256x8::work","component\work\COREUART_C0\COREUART_C0_0\rtl\vlog\core\fifo_256x8.v","FALSE","FALSE"
-SUBBLOCK "COREUART_C0_COREUART_C0_0_fifo_ctrl_256::work","component\work\COREUART_C0\COREUART_C0_0\rtl\vlog\core\fifo_256x8.v","FALSE","FALSE"
-ENDLIST
-LIST "COREUART_C0_COREUART_C0_0_fifo_ctrl_256::work","component\work\COREUART_C0\COREUART_C0_0\rtl\vlog\core\fifo_256x8.v","FALSE","FALSE"
-SUBBLOCK "COREUART_C0_COREUART_C0_0_ram16x8::work","component\work\COREUART_C0\COREUART_C0_0\rtl\vlog\core\fifo_256x8.v","FALSE","FALSE"
-ENDLIST
-LIST "COREUART_C0_COREUART_C0_0_ram16x8::work","component\work\COREUART_C0\COREUART_C0_0\rtl\vlog\core\fifo_256x8.v","FALSE","FALSE"
-ENDLIST
 LIST "debouncer::work","hdl\debouncer.sv","FALSE","FALSE"
 ENDLIST
 LIST "deserializer::work","hdl\deserializer.sv","FALSE","FALSE"
 ENDLIST
 LIST "click_mux::work","hdl\click_mux.sv","FALSE","FALSE"
-ENDLIST
-LIST "COREUART_C0_COREUART_C0_0_Rx_async::work","component\work\COREUART_C0\COREUART_C0_0\rtl\vlog\core\Rx_async.v","FALSE","FALSE"
-ENDLIST
-LIST "COREUART_C0_COREUART_C0_0_Tx_async::work","component\work\COREUART_C0\COREUART_C0_0\rtl\vlog\core\Tx_async.v","FALSE","FALSE"
 ENDLIST
 LIST "counter::work","hdl\counter.sv","FALSE","FALSE"
 ENDLIST
@@ -721,10 +552,6 @@ LIST "serializer::work","hdl\serializer.sv","FALSE","FALSE"
 ENDLIST
 LIST "simple_command_controller::work","","FALSE","FALSE"
 ENDLIST
-LIST "test_register::work","component\work\test_register\test_register.v","TRUE","FALSE"
-SUBBLOCK "OSC_C0::work","component\work\OSC_C0\OSC_C0.v","TRUE","FALSE"
-SUBBLOCK "top_wombat_command_parser::work","hdl\top_wombat_command_parser.sv","FALSE","FALSE"
-ENDLIST
 LIST "testbench::work","hdl\tb_top_uart_loopback.sv","FALSE","FALSE"
 SUBBLOCK "uart_rx::work","hdl\uart_rx.sv","FALSE","FALSE"
 SUBBLOCK "uart_tx::work","hdl\uart_tx.sv","FALSE","FALSE"
@@ -769,9 +596,6 @@ ENDLIST
 LIST "XTLOSC::work","component\Actel\SgCore\OSC\2.0.101\osc_comps.v","FALSE","FALSE"
 ENDLIST
 LIST "XTLOSC_FAB::work","component\Actel\SgCore\OSC\2.0.101\osc_comps.v","FALSE","FALSE"
-ENDLIST
-LIST "testbnch::work","component\work\COREUART_C0\COREUART_C0_0\rtl\vlog\test\user\testbnch.v","FALSE","TRUE"
-SUBBLOCK "COREUART_C0_COREUART_C0_0_COREUART::work","component\work\COREUART_C0\COREUART_C0_0\rtl\vlog\core\CoreUART.v","FALSE","FALSE"
 ENDLIST
 ENDLIST
 LIST ActiveTestBenchList

@@ -27,6 +27,9 @@
 !**/smartgen/**/*.sv
 !**/smartgen/**/*.v
 !**/smartgen/**/*.vhd
+!**/component/**.sdb
+!**/component/**.cxf
+Components/
 
 !README*
 !CHANGELOG*

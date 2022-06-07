@@ -45,3 +45,4 @@
 `include "wombat_command_parser/command_controller.sv"
 `include "wombat_command_parser/wombat_command_parser_uart.sv"
 `include "wombat_command_parser/top_wombat_command_parser.sv"
+`include "wombat_command_parser/top_wombat_command_parser_debug.sv"
