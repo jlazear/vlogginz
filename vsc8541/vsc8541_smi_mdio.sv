@@ -72,18 +72,11 @@ module vsc8541_smi_mdio (
 
 	always_ff @(posedge clk) begin
 		cnt <= cnt;
-		w_en <= w_en;
-		tx <= tx;
-		dv <= '0;
 		read_data <= read_data;
 		if (i_reset) begin
 			cnt <= '0;
-			w_en <= '0;
-			tx <= '0;
 			read_data <= '0;
 		end else if (state == RESET) begin
-			w_en <= '1;
-			tx <= '1;
 			if (mdc_edge == FALLING)
 				cnt <= (cnt >= RESET_CNT-1) ? '0 : cnt + 1'b1;
 		end else if (state == IDLE) begin
@@ -91,43 +84,28 @@ module vsc8541_smi_mdio (
 			write_data <= i_data;
 		end else if (state == WAIT) begin
 			cnt <= '0;
-			w_en <= (next_state == SFD) ? '1 : '0;
 		end else if (state == SFD) begin
-			w_en <= '1;
-			tx <= (cnt == 0) ? '0 : '1;
 			if (mdc_edge == FALLING)
 				cnt <= (cnt >= SFD_CNT-1) ? '0 : cnt + 1'b1;
 		end else if (state == MODE) begin
-			w_en <= '1;
-			tx <= i_mode ? WRITE_MODE[cnt[0]] : READ_MODE[cnt[0]];
 			if (mdc_edge == FALLING)
 				cnt <= (cnt >= MODE_CNT-1) ? '0 : cnt + 1'b1;			
 		end else if (state == PHYADDRESS) begin
-			w_en <= '1;
-			tx <= i_phy_addr[PHYADDR_CNT - cnt - 1];
 			if (mdc_edge == FALLING)
 				cnt <= (cnt >= PHYADDR_CNT-1) ? '0 : cnt + 1'b1;
 		end else if (state == REGADDRESS) begin
-			w_en <= '1;
-			tx <= i_reg_addr[REGADDR_CNT - cnt - 1];
 			if (mdc_edge == FALLING)
 				cnt <= (cnt >= REGADDR_CNT-1) ? '0 : cnt + 1'b1;			
 		end else if (state == TA) begin
-			w_en <= i_mode ? '1 : !cnt;
-			tx <= !cnt;
 			if (mdc_edge == FALLING)
 				cnt <= (cnt >= TA_CNT-1) ? '0 : cnt + 1'b1;			
 		end else if (state == READ) begin
-			w_en <= '0;
 			if (mdc_edge == RISING)
 				read_data <= {read_data, rx};
 			else if (mdc_edge == FALLING) begin
 				cnt <= (cnt >= READ_CNT-1) ? '0 : cnt + 1'b1;
-				dv <= (cnt >= READ_CNT-1) ? '1 : '0;
 			end
 		end else if (state == WRITE) begin
-			w_en <= '1;
-			tx <= write_data[15];
 			if (mdc_edge == FALLING) begin
 				cnt <= (cnt >= WRITE_CNT-1) ? '0 : cnt + 1'b1;
 				write_data <= write_data << 1;
@@ -135,6 +113,56 @@ module vsc8541_smi_mdio (
 		end
 	end
 
+	// FSM outputs
+	always_comb begin
+		if (i_reset) begin
+			w_en = '0;
+			tx = '0;
+			dv = '0;
+		end else if (state == RESET) begin
+			w_en = '1;
+			tx = '1;
+			dv = '0;
+		end else if (state == IDLE) begin
+			w_en = '0;
+			tx = '0;
+			dv = '0;
+		end else if (state == WAIT) begin
+			w_en = '0;
+			tx = '0;
+			dv = '0;
+		end else if (state == SFD) begin
+			w_en = '1;
+			tx = (cnt == 0) ? '0 : '1;
+			dv = '0;
+		end else if (state == MODE) begin
+			w_en = '1;
+			tx = i_mode ? WRITE_MODE[cnt[0]] : READ_MODE[cnt[0]];
+			dv = '0;
+		end else if (state == PHYADDRESS) begin
+			w_en = '1;
+			tx = i_phy_addr[PHYADDR_CNT - cnt - 1];
+			dv = '0;
+		end else if (state == REGADDRESS) begin
+			w_en = '1;
+			tx = i_reg_addr[REGADDR_CNT - cnt - 1];
+			dv = '0;
+		end else if (state == TA) begin
+			w_en = i_mode ? '1 : !cnt;
+			tx = !cnt;
+			dv = '0;
+		end else if (state == READ) begin
+			w_en = '0;
+			dv = (cnt >= READ_CNT-1) ? '1 : '0;
+		end else if (state == WRITE) begin
+			w_en = '1;
+			tx = write_data[15];
+			dv = '0;
+		end
+		
+	end
+
+	// module outputs
 	assign o_data = read_data;
 	assign o_dv = dv;
 

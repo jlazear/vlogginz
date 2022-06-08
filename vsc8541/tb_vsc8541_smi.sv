@@ -3,7 +3,7 @@
 module testbench_smi;
 
 localparam period = 10;  // 100 MHz clock
-localparam DIVISOR = 100;
+localparam DIVISOR = 4;
 
 enum {START, RESET, READ_CONFIG, READ_RX, IDLE, WRITE_CONFIG, WRITE_TX, DONE} tb_state;
 
@@ -118,6 +118,8 @@ initial begin
 	ext_tx <= '0;
 
 	@(posedge clk) i_reset <= '1;
+	@(posedge clk);
+	@(posedge clk);
 	@(posedge clk) i_reset <= '0;
 
 	tb_state <= RESET;
