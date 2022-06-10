@@ -7,13 +7,16 @@ module top_wombat_command_parser #(
 	parameter REG_DEPTH = 16,
 	parameter REG_WIDTH = 4,  // in words
 	parameter UART_LITTLE_ENDIAN = 1,
-	parameter LITTLE_ENDIAN = 0
+	parameter LITTLE_ENDIAN = 0,
+	parameter REG_DEPTH_RO = 16
 	) (
 	input clk,    // Clock
 	input i_reset,
 	input i_rx,
 	output o_tx,
 	output [WORD_WIDTH*REG_WIDTH-1 : 0] o_mem [REG_DEPTH-1 : 0],
+	input [WORD_WIDTH*REG_WIDTH-1 : 0] i_mem_ro [REG_DEPTH_RO-1 : 0],
+	input i_wro_en,
 
 	// #DELME debug
 	input [1:0] i_buttons,
@@ -52,9 +55,10 @@ module top_wombat_command_parser #(
 		.i_r_valid(r_valid)
 		);
 
-	register_block #(
+	register_block_w_ro #(
 		.WIDTH(REG_WIDTH*WORD_WIDTH),
-		.DEPTH(REG_DEPTH)
+		.DEPTH(REG_DEPTH),
+		.DEPTH_RO(REG_DEPTH_RO)
 	) u_register_block (
 		.clk      (clk    ),
 		.reset    (reset),
@@ -65,7 +69,9 @@ module top_wombat_command_parser #(
 		.i_r_addr (r_addr ),
 		.o_r_value(r_data ),
 		.o_r_valid(r_valid),
-		.o_mem(mem)
+		.o_mem(mem),
+		.i_mem_ro (i_mem_ro),
+		.i_wro_en (i_wro_en)
 	);
 
 	assign o_mem = mem;
