@@ -1,5 +1,7 @@
 import serial
+import bitstring
 import argparse
+import time
 
 verbose = 1
 baudrate = 115200  # baud
@@ -77,7 +79,23 @@ def enable_blinky(enable=True):
 
 
 def set_mux(mode):
-    write(0x01, 3*b'\x00' + byte(mode))
+    write(0x01, 3*b'\x00' + bytes([mode]))
+
+# SMIO
+def configure_smio(mode='r', phy_addr=0, reg_addr=0, input_data=0, verbose=False):
+    ba = bitstring.BitArray(length=32)
+    ba[31] = 0 if (mode == 'r') else 1
+    ba[26:31] = phy_addr % 2**5
+    ba[21:26] = reg_addr % 2**5
+    ba[5:21] = input_data % 2**16
+
+    write(addr=0x04, value=ba.tobytes(), nbytes_value=4, verbose=verbose)
+    return ba
+
+def trigger_smio(addr=5, delay=.1):
+    write(5, b'\x00\x00\x00\x01')
+    time.sleep(delay)
+    write(5, b'\x00\x00\x00\x00')
 
 
 cmd_dict = {'w': write,

@@ -84,3 +84,13 @@ set_io o_tx            \
     -pinname 2         \
     -fixed yes         \
     -DIRECTION OUTPUT
+
+set_io io_mdio            \
+    -pinname 27         \
+    -fixed yes         \
+    -DIRECTION INOUT
+
+set_io o_mdc            \
+    -pinname 28         \
+    -fixed yes         \
+    -DIRECTION OUTPUT
